@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#7047db" />
+  <meta name="diet-dashboard-build" content="v8-history-20261021" />
+  <title>体重記録一覧 | ダイエット進捗</title>
+  <style>
+    :root{--ink:#171052;--purple:#6e43dc;--purple2:#8d69ee;--green:#09b56b;--pink:#ff3f7c;--blue:#416cf3;--line:#e3e0f2;--bg:#f4f6ff}
+    *{box-sizing:border-box} html{background:#eef2ff} body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:radial-gradient(circle at 50% 0,#fff 0,#f5f7ff 45%,#edf1fb 100%);-webkit-font-smoothing:antialiased}
+    .app{width:min(100%,1100px);margin:0 auto;padding:8px 16px 30px}
+    .hero{min-height:132px;border-radius:24px 24px 0 0;padding:22px 30px;display:flex;align-items:center;gap:18px;position:relative;overflow:hidden;color:#fff;background:linear-gradient(110deg,#6a42d8,#8b62ec 58%,#7449dc);box-shadow:0 8px 25px rgba(72,48,160,.16)}
+    .back{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:28px;font-weight:900;flex:0 0 auto}
+    .hero h1{margin:0;font-size:36px;line-height:1.08} .hero p{margin:8px 0 0;font-size:15px;font-weight:700;opacity:.94}
+    .leaf{position:absolute;border:2px solid rgba(255,255,255,.15);border-radius:100% 0 100% 0;right:28px;top:22px;width:88px;height:50px;transform:rotate(-34deg)}
+    .error{margin:14px 0 0;padding:14px 16px;background:#fff2f4;border:1px solid #ffcbd5;color:#9b2e45;border-radius:14px;display:none} .error.show{display:block}
+    .toolbar{margin-top:14px;background:#fff;border:1px solid #dedcf0;border-radius:18px;padding:14px 16px;box-shadow:0 6px 18px rgba(57,41,120,.06);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .summary{font-size:14px;color:#6d6782} .summary strong{color:#2b087d;font-size:18px}
+    .controls{display:flex;gap:8px;align-items:center} button{font:inherit} .sort-btn,.reload{border:1px solid #d9d3f4;background:#f5f2ff;color:#5435b0;border-radius:999px;padding:9px 13px;font-weight:800}
+    .table-card{margin-top:14px;background:#fff;border:1px solid #dedcf0;border-radius:20px;box-shadow:0 6px 18px rgba(57,41,120,.07);overflow:hidden}
+    .table-title{padding:16px 18px;background:linear-gradient(90deg,#f0efff,#f8f7ff 70%,#f1efff);display:flex;align-items:center;gap:10px;font-size:20px;font-weight:900}
+    .table-scroll{overflow:auto;max-height:none}
+    table{border-collapse:separate;border-spacing:0;width:100%;min-width:780px;font-variant-numeric:tabular-nums}
+    th,td{padding:12px 10px;text-align:center;border-bottom:1px solid #eceaf5;border-right:1px solid #f0eef7;white-space:nowrap}
+    th{position:sticky;top:0;z-index:2;background:#f7f5ff;color:#3e2d87;font-size:13px;font-weight:900}
+    th:first-child,td:first-child{position:sticky;left:0;z-index:1;background:#fff;text-align:left;padding-left:16px} th:first-child{z-index:3;background:#f7f5ff}
+    tbody tr:nth-child(even) td{background:#fcfcff} tbody tr:nth-child(even) td:first-child{background:#fcfcff}
+    td{font-size:14px;color:#21175f} .planned{font-weight:800;color:#6c48d8} .weight{font-weight:900} .bf{color:#d62f70} .missing{color:#aaa6b5;font-weight:500} .sat{color:#176eea} .sun{color:#e62f63}
+    .today-row td{background:#fff9e8!important} .recorded-row:hover td{background:#f8f6ff}
+    .note{padding:12px 16px 16px;color:#77718b;font-size:12px;line-height:1.6}
+    .preview{margin-top:14px;padding:14px 16px;border:1px solid #d8d0ff;background:#f3f0ff;color:#4f399d;border-radius:14px}
+    @media(max-width:760px){.app{padding:0 7px 22px}.hero{min-height:112px;padding:18px 16px;border-radius:22px 22px 0 0}.back{width:40px;height:40px;font-size:24px}.hero h1{font-size:27px}.hero p{font-size:13px}.toolbar{padding:11px 12px}.summary{font-size:12px}.summary strong{font-size:16px}.sort-btn,.reload{padding:8px 10px;font-size:12px}.table-title{font-size:18px;padding:14px} th,td{padding:10px 8px;font-size:12px} th{font-size:11px} th:first-child,td:first-child{padding-left:12px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <a class="back" href="index.html" aria-label="ダッシュボードへ戻る">‹</a>
+      <div><h1>体重記録一覧</h1><p>予定体重と朝・夜の記録をすべて確認</p></div>
+      <div class="leaf" aria-hidden="true"></div>
+    </header>
+
+    <div id="error" class="error"></div>
+    <div id="preview" class="preview" hidden>ChatGPT内プレビューでは外部通信を停止しています。GitHub Pagesで開くと実データが表示されます。</div>
+
+    <section class="toolbar">
+      <div class="summary"><strong id="recordCount">—</strong>　<span id="periodText">読み込み中…</span></div>
+      <div class="controls"><button id="sortButton" class="sort-btn" type="button">新しい順</button><button id="reloadButton" class="reload" type="button">再読み込み</button></div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-title">▣　全期間の体重記録</div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>日付</th><th>予定体重</th><th>朝の体重</th><th>朝の体脂肪率</th><th>夜の体重</th><th>夜の体脂肪率</th></tr></thead>
+          <tbody id="historyBody"><tr><td colspan="6">読み込み中…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="note">予定体重は、前半ほど減量幅が大きく、目標に近づくほど緩やかになる現在の2段階カーブで計算しています。記録がない項目は「—」で表示します。</div>
+    </section>
+  </main>
+<script>
+(() => {
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxoMuA6HS8QmWP4GtXbBt3RiQjuwxhW1rLgyrYNNnJ9q0IJoGio9xy33-FCiv-t9O-4/exec';
+  const $ = id => document.getElementById(id);
+  const weekdays = ['日','月','火','水','木','金','土'];
+  let rows = []; let newestFirst = true;
+  const fmt = (v,d=1,suffix='') => Number.isFinite(Number(v)) ? `${Number(v).toFixed(d)}${suffix}` : '—';
+  const parseDate = iso => new Date(`${iso}T00:00:00`);
+  const dateLabel = iso => { const d=parseDate(iso); return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}（${weekdays[d.getDay()]}）`; };
+  function render() {
+    const data = [...rows].sort((a,b)=> newestFirst ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date));
+    const today = new Date(); const todayIso = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    $('historyBody').innerHTML = data.map(r => {
+      const d=parseDate(r.date), cls=d.getDay()===0?'sun':d.getDay()===6?'sat':'';
+      const hasRecord=[r.amWeight,r.amBodyFat,r.pmWeight,r.pmBodyFat].some(v=>Number.isFinite(Number(v)));
+      const rowClass=`${r.date===todayIso?'today-row ':''}${hasRecord?'recorded-row':''}`;
+      const cell=(v,digits,suffix,kind='')=> Number.isFinite(Number(v)) ? `<span class="${kind}">${Number(v).toFixed(digits)}${suffix}</span>` : '<span class="missing">—</span>';
+      return `<tr class="${rowClass}"><td class="${cls}">${dateLabel(r.date)}</td><td>${cell(r.plannedWeight,2,' kg','planned')}</td><td>${cell(r.amWeight,1,' kg','weight')}</td><td>${cell(r.amBodyFat,1,' %','bf')}</td><td>${cell(r.pmWeight,1,' kg','weight')}</td><td>${cell(r.pmBodyFat,1,' %','bf')}</td></tr>`;
+    }).join('') || '<tr><td colspan="6">データがありません</td></tr>';
+    const recorded = rows.filter(r=>[r.amWeight,r.pmWeight].some(v=>Number.isFinite(Number(v)))).length;
+    $('recordCount').textContent = `${recorded}日記録`;
+    if(rows.length) $('periodText').textContent = `${dateLabel(rows[0].date)} ～ ${dateLabel(rows[rows.length-1].date)}`;
+    $('sortButton').textContent = newestFirst ? '新しい順' : '古い順';
+  }
+  function loadJsonp() { return new Promise((resolve,reject)=>{
+    const cb=`dietHistoryCallback_${Date.now()}`, s=document.createElement('script');
+    const timer=setTimeout(()=>cleanup(new Error('データ取得がタイムアウトしました。')),45000);
+    function cleanup(err,data){clearTimeout(timer);delete window[cb];s.remove();err?reject(err):resolve(data)}
+    window[cb]=data=>cleanup(null,data); s.onerror=()=>cleanup(new Error('Apps Scriptへの接続に失敗しました。'));
+    s.src=`${ENDPOINT}?view=history&callback=${encodeURIComponent(cb)}&_=${Date.now()}`; document.head.appendChild(s);
+  }) }
+  async function refresh() { $('reloadButton').disabled=true; $('error').classList.remove('show'); try{ const data=await loadJsonp(); if(!data||data.ok===false) throw new Error(data&&data.error?data.error:'不明なデータ形式です。'); rows=Array.isArray(data.history)?data.history:[]; render(); }catch(e){ $('error').textContent=e.message||String(e); $('error').classList.add('show'); }finally{ $('reloadButton').disabled=false; } }
+  $('sortButton').addEventListener('click',()=>{newestFirst=!newestFirst;render()}); $('reloadButton').addEventListener('click',refresh);
+  const allowed = location.hostname.endsWith('github.io') || location.protocol==='file:' || location.hostname==='localhost' || location.hostname==='127.0.0.1';
+  if(allowed) refresh(); else { $('preview').hidden=false; $('historyBody').innerHTML='<tr><td colspan="6">GitHub Pagesで確認してください</td></tr>'; $('reloadButton').disabled=true; }
+})();
+</script>
+</body>
+</html>

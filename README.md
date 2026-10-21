@@ -1,14 +1,12 @@
-# diet-dashboard single v6
+# diet-dashboard v8 - 全記録ページ追加
 
-スマホでデータ取得できなかった原因を修正した版です。
+追加内容:
+- `index.html`: 「直近7日の体重」に「全記録を見る →」リンクを追加
+- `history.html`: 日付 / 予定体重 / 朝体重 / 朝体脂肪率 / 夜体重 / 夜体脂肪率 を全期間表示
+- `Code.gs`: `?view=history` で履歴データを返すように拡張
 
-原因:
-- v5 の index.html が `http://127.0.0.1:8765/api` を参照していました。
-- 127.0.0.1 は「その端末自身」を意味するため、PCではローカル環境に接続できても、iPhoneではiPhone自身を探して失敗します。
+## GitHub
+`index.html` と `history.html` をリポジトリ直下へアップロードしてください。
 
-修正:
-- 公開済み Google Apps Script の HTTPS URLを直接指定
-- データ取得タイムアウトを15秒→45秒へ延長
-- 1ファイル構成なので GitHub では index.html だけ上書きすればOK
-
-GitHub Pages反映後、iPhone Safariで再読み込みしてください。
+## Apps Script
+`Code.gs` を既存Apps Scriptへ丸ごと上書きして保存し、既存ウェブアプリのデプロイを「新しいバージョン」に更新してください。URLは同じままで構いません。
