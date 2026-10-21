@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v9-webinput-20261021">
+  <meta name="diet-dashboard-build" content="v10-input-fix-20261021">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -272,7 +272,8 @@ button{touch-action:manipulation}
     const [y,m,d]=iso.split('-').map(Number), dt=new Date(y,m-1,d);
     return `${m}/${d}<br>(${weekday[dt.getDay()]})`;
   }
-  function num(v,d=1){ return Number.isFinite(Number(v)) ? Number(v).toFixed(d) : null; }
+  function hasValue(v){ return v !== null && v !== '' && typeof v !== 'undefined' && Number.isFinite(Number(v)); }
+  function num(v,d=1){ return hasValue(v) ? Number(v).toFixed(d) : null; }
   function kg(v,d=1){ const n=num(v,d); return n===null?'—':`${n} kg`; }
   function pct(v){ return `${(Math.max(0,Math.min(1,Number(v)||0))*100).toFixed(1)}%`; }
 
@@ -381,7 +382,7 @@ button{touch-action:manipulation}
     $('historySort').textContent=historyNewest?'新しい順':'古い順';
     $('historyList').innerHTML=rows.map(r=>{
       const slot=(name,w,bf)=>{
-        const has=Number.isFinite(Number(w));
+        const has=hasValue(w);
         return `<div class="slot-card ${has?'':'empty'}"><button type="button" data-edit-date="${r.date}" data-edit-slot="${name}"><span class="slot-title">${name} ${has?'✎':'＋'}</span><b>${has?Number(w).toFixed(1)+' kg':'—'}</b><small>${Number.isFinite(Number(bf))?Number(bf).toFixed(1)+' %':'—'}</small></button></div>`;
       };
       return `<article class="history-row"><div class="history-top"><div class="history-date">${fmtDate(r.date)}</div><div class="planned">予定 ${Number(r.plannedWeight).toFixed(2)} kg</div></div><div class="slots">${slot('朝',r.amWeight,r.amBodyFat)}${slot('夜',r.pmWeight,r.pmBodyFat)}</div></article>`;
@@ -411,11 +412,13 @@ button{touch-action:manipulation}
   function findHistory(date){ return data && data.history ? data.history.find(r=>r.date===date) : null; }
   function startEdit(date,slot){
     const row=findHistory(date), morning=slot==='朝';
+    const sourceWeight = row ? (morning ? row.amWeight : row.pmWeight) : null;
+    const sourceBodyFat = row ? (morning ? row.amBodyFat : row.pmBodyFat) : null;
     record={
       date,slot,
-      weight: row ? String(morning?(row.amWeight??''):(row.pmWeight??'')) : '',
-      bodyFat: row ? String(morning?(row.amBodyFat??''):(row.pmBodyFat??'')) : '',
-      active:'weight',editing:!!(row && Number.isFinite(Number(morning?row.amWeight:row.pmWeight))),manualSlot:true
+      weight: hasValue(sourceWeight) ? String(sourceWeight) : '',
+      bodyFat: hasValue(sourceBodyFat) ? String(sourceBodyFat) : '',
+      active:'weight',editing:hasValue(sourceWeight),manualSlot:true
     };
     navigate('record'); renderRecord();
   }
@@ -428,7 +431,26 @@ button{touch-action:manipulation}
     const cutoff=(data&&data.settings&&data.settings.morningCutoff)||'12:00';
     $('autoSlotNote').textContent=`${cutoff}より前は「朝」、${cutoff}以降は「夜」を自動選択。いつでも手動変更できます。`;
   }
-  function setSlot(slot){ record.slot=slot; record.manualSlot=true; record.editing=false; const r=findHistory(record.date); if(r){const morn=slot==='朝';const w=morn?r.amWeight:r.pmWeight,b=morn?r.amBodyFat:r.pmBodyFat;if(Number.isFinite(Number(w))){record.weight=String(w);record.bodyFat=Number.isFinite(Number(b))?String(b):'';record.editing=true}else{record.weight='';record.bodyFat=''}} renderRecord(); }
+  function setSlot(slot){
+    record.slot=slot; record.manualSlot=true; record.editing=false;
+    const r=findHistory(record.date);
+    if(r){
+      const morn=slot==='朝';
+      const w=morn?r.amWeight:r.pmWeight, b=morn?r.amBodyFat:r.pmBodyFat;
+      if(hasValue(w)){
+        record.weight=String(w);
+        record.bodyFat=hasValue(b)?String(b):'';
+        record.editing=true;
+      } else {
+        record.weight='';
+        record.bodyFat='';
+      }
+    } else {
+      record.weight='';
+      record.bodyFat='';
+    }
+    renderRecord();
+  }
   function appendKey(k){
     let v=record[record.active];
     if(k==='C') v='';
@@ -553,7 +575,13 @@ button{touch-action:manipulation}
   document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.goto)));
   $('historySort').addEventListener('click',()=>{historyNewest=!historyNewest;renderHistory()});
   $('slotMorning').addEventListener('click',()=>setSlot('朝')); $('slotNight').addEventListener('click',()=>setSlot('夜'));
-  $('recordDate').addEventListener('change',()=>{record.date=$('recordDate').value;record.editing=false;setSlot(record.slot)});
+  $('recordDate').addEventListener('change',()=>{
+    record.date=$('recordDate').value;
+    record.editing=false;
+    record.weight='';
+    record.bodyFat='';
+    setSlot(record.slot);
+  });
   $('weightField').addEventListener('click',()=>{record.active='weight';renderRecord()}); $('bodyFatField').addEventListener('click',()=>{record.active='bodyFat';renderRecord()});
   $('keypad').addEventListener('click',e=>{const b=e.target.closest('[data-key]');if(b)appendKey(b.dataset.key)});
   $('saveRecord').addEventListener('click',saveRecord); $('deleteRecord').addEventListener('click',deleteRecord);
