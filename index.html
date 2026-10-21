@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v12-home-visual-match-20261021">
+  <meta name="diet-dashboard-build" content="v13-precise-iphone-layout-20261021">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -107,13 +107,156 @@ button{touch-action:manipulation}
   .goal-settings-wrap{grid-template-columns:1fr 1fr;gap:7px}.goal-box{padding:10px}.goal-box strong{font-size:22px}.goal-box .date{font-size:10px}.goal-box .remain-pill{font-size:8px;right:7px;top:8px}
 }
 
+
+/* ===== v13: final illustrated iPhone-home layout ===== */
+.home-recent .recent:nth-child(7){grid-column:auto!important}
+:root{--ink:#161050;--muted:#786f97;--purple:#6d3fe7;--line:#e4e0f5;--shadow:0 6px 22px rgba(76,60,146,.065)}
+html,body{background:#f2f3ff}
+.app{background:linear-gradient(180deg,#f1f2ff 0%,#f7f8ff 100%);}
+.topbar{background:linear-gradient(114deg,#713bdf 0%,#9058ee 68%,#7c43e6 100%);min-height:0;padding:calc(18px + env(safe-area-inset-top)) 20px 39px;isolation:isolate;box-shadow:none}
+.topbar.compact{padding:calc(15px + env(safe-area-inset-top)) 18px 17px;min-height:0}
+.topbar .brand{z-index:2;position:relative;gap:13px}
+.topbar .brand-bars{height:48px;gap:5px}
+.topbar .brand-bars i{width:12px}
+.topbar .brand-bars i:nth-child(1){height:24px}.topbar .brand-bars i:nth-child(2){height:34px}.topbar .brand-bars i:nth-child(3){height:47px}
+.topbar h1{font-size:clamp(24px,6.8vw,35px);font-weight:900;white-space:nowrap;letter-spacing:0}
+.topbar p{position:relative;z-index:2;margin:10px 0 0 57px;font-size:clamp(12px,3.6vw,16px);font-weight:650;white-space:nowrap}
+.topbar .banner-art{position:absolute;right:0;top:0;bottom:0;width:65%;background-image:url('data:image/webp;base64,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');background-size:cover;background-repeat:no-repeat;background-position:right bottom;opacity:.87;z-index:0}
+.banner-hills{position:absolute;inset:auto 0 0;z-index:0;pointer-events:none}.banner-hills svg{width:100%;height:65px;display:block}
+.header-motto{position:absolute;right:14%;top:calc(18px + env(safe-area-inset-top));z-index:1;white-space:nowrap;transform:rotate(-8deg);color:#fff;font-family:serif;font-size:clamp(11px,3vw,15px);line-height:1.4;text-shadow:0 1px 8px #985bea;font-style:italic}
+.topbar.compact .header-motto,.topbar.compact .banner-hills{display:none}
+.page.home-dashboard{padding:0 11px 16px;position:relative;z-index:4;margin-top:-23px}
+.home-dashboard .card{border:1px solid rgba(239,237,253,.85);border-radius:23px;background:#fff;margin-bottom:10px;box-shadow:0 6px 20px rgba(79,69,134,.055)}
+.home-summary-grid{grid-template-columns:1fr 1fr}
+.home-current{padding:10px 8px 11px 13px;border-right:1px solid #e8e5f4}
+.achievement-panel{padding:10px 10px 9px 9px}
+.home-current-head,.achievement-head{font-size:clamp(12px,3.5vw,16px);gap:7px;white-space:nowrap;letter-spacing:-.045em}
+.home-icon{width:27px;height:27px;border-radius:9px;font-size:17px;background:#efebff;flex:0 0 27px;display:grid;place-items:center}
+.home-icon svg{width:21px;height:21px}
+.achievement-help{margin-left:0;width:18px;height:18px;flex:0 0 18px;background:#fff;font-size:11px;border:1.5px solid #b8a8e5;cursor:pointer}
+.home-weight{margin-top:8px;gap:0;white-space:nowrap;max-width:100%;align-items:baseline}
+.home-weight strong{font-size:clamp(35px,11.3vw,67px);font-weight:950;letter-spacing:-.074em}
+.home-weight span{font-size:clamp(16px,4.45vw,26px);margin-left:1px;letter-spacing:-.075em}
+.home-prev{font-size:clamp(11px,3vw,15px);margin-top:9px;white-space:nowrap}
+.home-prev b{font-size:clamp(12px,3.8vw,17px);margin-left:2px;white-space:nowrap}
+.home-mini-grid{margin-top:17px;gap:5px}
+.home-mini{padding:9px 6px 8px;border-radius:12px;background:linear-gradient(145deg,#f7f5ff,#fff);min-height:57px}
+.home-mini:nth-child(2){background:linear-gradient(145deg,#effcf8,#fff)}
+.home-mini .mini-title{display:flex;align-items:center;gap:3px;min-width:0;white-space:nowrap}
+.home-mini span{font-size:clamp(8px,2.5vw,11px);font-weight:850}
+.home-mini .mini-icon{width:18px;height:19px;flex:0 0 18px;border-radius:6px;display:grid;place-items:center;font-size:13px;background:#edeaff;color:#734eea}
+.home-mini .gap-icon{background:#e7fff2;color:#13aa72}
+.home-mini b{margin-top:5px;font-size:clamp(13px,3.55vw,20px);white-space:nowrap;letter-spacing:-.045em}
+.achievement-value{font-size:clamp(48px,14.7vw,85px);line-height:.9;margin:8px auto 2px;font-weight:950;letter-spacing:-.065em}
+.achievement-status{background:#ffe6ef;color:#e42965!important;font-size:clamp(12px,3.3vw,16px);font-weight:900;padding:4px 15px}
+.achievement-status.bad{background:#fff0e2;color:#cc5b2f!important}
+.achievement-note{margin-top:8px;display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:11px;background:#fff0f5;color:#ec356e;font-weight:800;font-size:clamp(8px,2.15vw,11px);line-height:1.3}
+.alert-mark{display:grid;place-items:center;width:17px;height:17px;flex:0 0 17px;border:2px solid #ff3782;border-radius:50%;font-size:11px}
+.achievement-subgrid{gap:5px;margin-top:7px}
+.achievement-sub{position:relative;padding:5px 4px 5px 6px;border-radius:13px;min-height:57px}
+.achievement-sub .sub-icon{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:6px;font-size:14px;font-weight:900;margin-right:1px}
+.achievement-sub .sub-icon.mint{background:#ecfff6;color:#05af70}
+.achievement-sub .sub-icon.blue{background:#e9f4ff;color:#1884ec}
+.achievement-sub .sub-title{font-size:clamp(8px,2.2vw,10px);white-space:nowrap;display:inline}
+.achievement-sub b{font-size:clamp(16px,4.4vw,23px);line-height:1.1;margin:3px 0 0 27px;white-space:nowrap}
+.achievement-sub small{font-size:clamp(8px,2.1vw,10px);margin-top:5px;text-align:center;white-space:nowrap}
+.home-dashboard .card-head{background:#fff;min-height:0;padding:10px 10px 7px;gap:6px}
+.home-dashboard .card-head h2{display:flex;align-items:center;gap:7px;font-size:clamp(14px,3.7vw,19px);font-weight:900;white-space:nowrap}
+.section-glyph{display:inline-grid;place-items:center;width:26px;height:26px;flex:0 0 26px;border-radius:8px;font-size:19px;background:#f1edff;color:#7046e7;line-height:1}
+.home-dashboard .more{padding:7px 9px;font-size:clamp(9px,2.4vw,12px);white-space:nowrap;border-color:#d9cef7;color:#6236d6}
+.home-recent .card-head{min-height:0}
+.home-recent .recent-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:1px 9px 10px}
+.home-recent .recent{border-radius:12px;min-width:0;background:linear-gradient(135deg,#f9f8ff,#fff)}
+.home-recent .recent .d{background:transparent;padding:8px 1px 1px;font-size:clamp(9px,2.4vw,12px);line-height:1.25;white-space:nowrap}
+.home-recent .recent .w{padding:1px 1px 8px;font-size:clamp(15px,4.2vw,21px);line-height:1.25;white-space:nowrap}
+.home-recent .recent.sat{background:#eaf7ff;border-color:#c4e4ff}.home-recent .recent.sat .d{color:#1884e7}
+.home-recent .recent.sun{background:#fff1f6;border-color:#ffd7e5}.home-recent .recent.sun .d{color:#f42e70}
+.goal-settings-card .card-head{min-height:0}
+.goal-head-note{font-size:clamp(8px,2.1vw,10px);font-weight:500;letter-spacing:0;color:#75699a;margin-left:2px;white-space:nowrap}
+.goal-settings-wrap{grid-template-columns:1fr 8px 1fr;gap:0;padding:1px 9px 10px;align-items:stretch}
+.goal-box{padding:8px 10px;border-radius:13px;min-width:0}
+.goal-box.g1{background:linear-gradient(145deg,#fff1f6,#fffafa);border-color:#ffdce7}
+.goal-box.g2{background:linear-gradient(145deg,#f9f8ff,#fff);border-color:#e5def6}
+.goal-label{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:clamp(10px,2.7vw,13px);font-weight:900}
+.goal-box.g1 .goal-label{color:#eb2b6b}.goal-box.g2 .goal-label{color:#77719e}
+.goal-dot{width:13px;height:13px;flex:0 0 13px;border-radius:50%;background:#ff3783;box-shadow:0 0 0 3px #ffe3ed}
+.g2 .goal-dot{background:#9183ba;box-shadow:0 0 0 3px #efecfb}
+.goal-box .remain-pill{position:static;padding:3px 5px;border-radius:9px;margin-left:auto;font-size:clamp(7px,1.9vw,9px);white-space:nowrap}
+.goal-details{display:flex;align-items:baseline;gap:4px;justify-content:space-between;white-space:nowrap;margin:9px 0 0}
+.goal-box strong{display:block;white-space:nowrap;font-size:clamp(17px,4.5vw,24px);margin:0;letter-spacing:-.05em;line-height:1.1}
+.goal-box .date{font-size:clamp(8px,2.1vw,11px);white-space:nowrap;color:#463966;margin:0;font-weight:650;letter-spacing:-.06em}
+.goal-connector{display:flex;align-items:center;justify-content:center;position:relative}.goal-connector:before{content:'';height:1px;width:18px;background:#c1b3e5;position:absolute}.goal-connector span{width:7px;height:7px;border-radius:50%;background:#9886c8;z-index:1}
+.home-trend-card .card-head{display:flex;align-items:center;flex-wrap:wrap;gap:4px;padding-bottom:2px}
+.trend-ctrl{margin-left:auto;display:flex;align-items:center;gap:7px;min-width:0}
+.trend-legend{display:flex;align-items:center;gap:7px;color:#5d527f;font-size:clamp(8px,2.15vw,10px);white-space:nowrap}
+.trend-legend span{display:inline-flex;align-items:center;gap:2px}.trend-legend i{display:inline-block;width:12px;border-top:2px solid #7047e6}.trend-legend .plan{border-top:2px dashed #fc3d7f}
+.trend-select-label{position:relative;white-space:nowrap}.trend-select-label select{appearance:none;border:1px solid #d7cafa;border-radius:99px;padding:6px 18px 6px 8px;min-height:29px;background:#fff;font-size:clamp(10px,2.5vw,12px);font-weight:900;color:#43316c}.trend-select-label:after{content:'⌄';position:absolute;right:6px;top:4px;font-size:13px;color:#6957a0;pointer-events:none}
+.home-trend-card .graph-card{padding:0 5px 5px}.home-trend-card svg.chart{width:100%;height:auto;display:block;max-height:none}
+.home-dashboard .card:last-child{margin-bottom:5px}
+/* retain normal tab and tools layout on the other four pages */
+@media(min-width:640px){
+  .page.home-dashboard{padding:0 15px 18px;margin-top:-24px}.home-current{padding:15px 18px}.achievement-panel{padding:15px 18px}
+  .home-weight strong{font-size:70px}.home-weight span{font-size:29px}
+  .home-mini b{font-size:23px}.achievement-value{font-size:90px}
+  .home-recent .recent .d{font-size:14px}.home-recent .recent .w{font-size:23px}
+  .goal-box strong{font-size:29px}.goal-box .date{font-size:14px}
+}
+@media(max-width:360px){
+  .topbar{padding-left:15px;padding-right:15px}.topbar h1{font-size:25px}
+  .page.home-dashboard{padding:0 7px 16px}.home-current{padding-left:10px;padding-right:6px}.achievement-panel{padding-left:7px;padding-right:7px}
+  .home-weight strong{font-size:35px}.home-weight span{font-size:16px}
+  .home-current-head,.achievement-head{font-size:12px;gap:4px}
+  .home-mini b{font-size:12px}.achievement-sub .sub-title{font-size:8px}
+  .goal-box{padding:7px}.goal-box strong{font-size:16px}.goal-box .date{font-size:8px}
+  .goal-head-note{display:none}
+}
+
+
+/* v13.1 screenshot-proportion refinements for iPhone */
+@media(max-width:639px){
+ .topbar{padding:calc(26px + env(safe-area-inset-top)) 17px 24px}
+ .topbar h1{font-size:clamp(20px,5.6vw,23px)}
+ .topbar .brand{gap:9px}
+ .topbar .brand-bars{height:41px;gap:4px}
+ .topbar .brand-bars i{width:9px}
+ .topbar .brand-bars i:nth-child(1){height:20px}
+ .topbar .brand-bars i:nth-child(2){height:30px}
+ .topbar .brand-bars i:nth-child(3){height:41px}
+ .topbar p{margin:7px 0 0 46px;font-size:clamp(11px,2.95vw,13px)}
+ .header-motto{top:calc(24px + env(safe-area-inset-top));right:14%;font-size:11px}
+ .home-current,.achievement-panel{padding-top:7px;padding-bottom:7px}
+ .home-icon{width:24px;height:24px;flex-basis:24px}
+ .home-icon svg{width:19px;height:19px}
+ .home-current-head,.achievement-head{gap:5px}
+ .achievement-value{font-size:clamp(46px,12.8vw,55px);margin:5px auto 1px}
+ .achievement-status{font-size:12px;padding:3px 13px}
+ .achievement-note{margin-top:5px;padding:4px 5px;line-height:1.25}
+ .achievement-subgrid{margin-top:4px}
+ .achievement-sub{min-height:53px;padding:4px 4px 4px 5px}
+ .achievement-sub .sub-icon{width:16px;height:16px;font-size:11px}
+ .achievement-sub b{margin:0 0 0 19px;font-size:17px}
+ .achievement-sub small{margin-top:3px;font-size:8px}
+ .home-dashboard .card-head{padding:6px 10px 5px}
+ .section-glyph{width:23px;height:23px;flex-basis:23px;font-size:16px}
+ .home-recent .recent-grid{padding:0 8px 8px}
+ .home-recent .recent .d{padding:5px 1px 0}
+ .home-recent .recent .w{padding:2px 1px 5px}
+ .goal-box{padding:6px 8px}
+ .goal-details{margin-top:5px}
+ .goal-settings-wrap{padding:1px 8px 8px}
+ .home-trend-card .card-head{padding-bottom:2px}
+}
+
 </style>
 </head>
 <body>
 <div class="app" id="app">
   <header class="topbar" id="topbar">
-    <div class="brand"><div class="brand-bars"><i></i><i></i><i></i></div><div><h1 id="pageTitle">ダイエット進捗</h1></div></div>
-    <p id="pageSubtitle">読み込み中…</p><div class="leaf" aria-hidden="true"></div>
+    <div class="banner-art" aria-hidden="true"></div>
+    <div class="banner-hills" aria-hidden="true"><svg viewBox="0 0 600 95" preserveAspectRatio="none"><path d="M0 70 Q70 42 145 56 Q197 70 260 48 Q321 40 393 62 Q450 70 513 30 Q556 12 600 37 L600 95 L0 95Z" fill="#8567ea" opacity=".25"/><path d="M0 92 Q65 71 120 77 Q240 90 305 54 Q360 66 418 52 Q465 47 600 68 L600 95 L0 95Z" fill="#5f45cb" opacity=".20"/></svg></div>
+    <div class="brand"><div class="brand-bars" aria-hidden="true"><i></i><i></i><i></i></div><div><h1 id="pageTitle">ダイエット進捗</h1></div></div>
+    <p id="pageSubtitle">読み込み中…</p>
+    <div class="header-motto" aria-hidden="true">理想の<br>わたしへ<br>一歩ずつ</div>
   </header>
 
   <main>
@@ -121,52 +264,51 @@ button{touch-action:manipulation}
       <section class="card home-summary">
         <div class="home-summary-grid">
           <div class="home-current">
-            <div class="home-current-head"><span class="home-icon">⚖</span><span>現在の体重</span></div>
+            <div class="home-current-head"><span class="home-icon scale-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 8V5.8C5 4.3 6.3 3 7.8 3h8.4C17.7 3 19 4.3 19 5.8V8M5.2 8h13.6l1.3 11.8c.1.8-.5 1.2-1.2 1.2H5.1c-.7 0-1.3-.4-1.2-1.2L5.2 8Z" fill="currentColor" opacity=".95"/><path d="M8 12.5a4 4 0 0 1 8 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M12 12.5l2-2" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></span><span>現在の体重</span></div>
             <div class="home-weight"><strong id="homeWeight">--.--</strong><span>kg</span></div>
             <div class="home-prev" id="homePrev">前回比 —</div>
             <div class="home-mini-grid">
-              <div class="home-mini"><span>予定体重</span><b id="homePlan">--.--kg</b></div>
-              <div class="home-mini"><span>予定との差</span><b id="homeGap">--.--kg</b></div>
+              <div class="home-mini"><div class="mini-title"><span class="mini-icon flag-icon" aria-hidden="true">⚑</span><span>予定体重</span></div><b id="homePlan">--.--kg</b></div>
+              <div class="home-mini"><div class="mini-title"><span class="mini-icon gap-icon" aria-hidden="true">♟</span><span>予定との差</span></div><b id="homeGap">--.--kg</b></div>
             </div>
           </div>
           <div class="achievement-panel">
-            <div class="achievement-head"><span class="home-icon">◎</span><span>計画達成度</span><span class="achievement-help">?</span></div>
+            <div class="achievement-head"><span class="home-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="11.1" cy="12.5" r="8.2" stroke="currentColor" stroke-width="2.5"/><circle cx="11.1" cy="12.5" r="4.4" stroke="currentColor" stroke-width="2.5"/><path d="m11 12.5 9.2-9.2m-2.8 0h2.8v2.8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>計画達成度</span><button type="button" class="achievement-help" id="achievementHelp" aria-label="計画達成度の説明">?</button></div>
             <div class="achievement-value" id="achievementValue">—%</div>
             <div class="achievement-status" id="achievementStatus">—</div>
-            <div class="achievement-note">このまま体重が変わらない場合、計画達成度は日数の経過とともに低下します。</div>
+            <div class="achievement-note"><span class="alert-mark" aria-hidden="true">!</span><span>体重が変わらず日数が経つと<br>計画達成度は下がります。</span></div>
             <div class="achievement-subgrid">
-              <div class="achievement-sub"><span>減量進捗率</span><b id="weightProgressPct">—%</b><small id="weightProgressDetail">—</small></div>
-              <div class="achievement-sub"><span>期間進捗率</span><b id="timeProgressPct">—%</b><small id="timeProgressDetail">—</small></div>
+              <div class="achievement-sub"><span class="sub-icon mint" aria-hidden="true">↘</span><span class="sub-title">減量進捗率</span><b id="weightProgressPct">—%</b><small id="weightProgressDetail">—</small></div>
+              <div class="achievement-sub"><span class="sub-icon blue" aria-hidden="true">▣</span><span class="sub-title">期間進捗率</span><b id="timeProgressPct">—%</b><small id="timeProgressDetail">—</small></div>
             </div>
           </div>
         </div>
       </section>
 
       <section class="card home-recent">
-        <div class="card-head"><h2>直近7日間の体重</h2><button class="more" data-goto="history" type="button">全記録を見る →</button></div>
+        <div class="card-head"><h2><span class="section-glyph" aria-hidden="true">▥</span>直近7日間の体重</h2><button class="more" data-goto="history" type="button">全記録を見る →</button></div>
         <div id="recentGrid" class="recent-grid"></div>
       </section>
 
       <section class="card goal-settings-card">
-        <div class="card-head"><h2>目標設定</h2><button class="more" data-goto="settings" type="button">目標を編集 →</button></div>
+        <div class="card-head"><h2><span class="section-glyph" aria-hidden="true">◎</span>目標設定<span class="goal-head-note">2つの目標で、理想の自分を目指しましょう</span></h2><button class="more" data-goto="settings" type="button">目標を編集 →</button></div>
         <div class="goal-settings-wrap">
-          <article class="goal-box g1"><span class="goal-badge">● 第1目標</span><span class="remain-pill" id="goal1RemainPill">残り —kg</span><strong id="g1Top">80.0kg</strong><div class="date" id="g1DateTop">—</div></article>
-          <article class="goal-box g2"><span class="goal-badge">● 第2目標</span><strong id="g2Top">60.0kg</strong><div class="date" id="g2DateTop">—</div></article>
+          <article class="goal-box g1">
+            <div class="goal-label"><span class="goal-dot"></span><span>第1目標</span><span class="remain-pill" id="goal1RemainPill">達成まで —kg</span></div>
+            <div class="goal-details"><strong id="g1Top">80.0kg</strong><span class="date" id="g1DateTop">—</span></div>
+          </article>
+          <div class="goal-connector" aria-hidden="true"><span></span></div>
+          <article class="goal-box g2">
+            <div class="goal-label"><span class="goal-dot"></span><span>第2目標</span></div>
+            <div class="goal-details"><strong id="g2Top">60.0kg</strong><span class="date" id="g2DateTop">—</span></div>
+          </article>
         </div>
       </section>
 
       <section class="card home-trend-card">
-        <div class="card-head"><h2>体重の推移</h2></div>
+        <div class="card-head trend-header"><h2><span class="section-glyph" aria-hidden="true">⌁</span>体重の推移</h2><div class="trend-ctrl"><div class="trend-legend"><span><i class="actual"></i>実測体重</span><span><i class="plan"></i>予定体重</span></div><label class="trend-select-label"><select id="homeGraphSelect" aria-label="グラフ期間"><option value="1m">1ヶ月</option><option value="3m" selected>3ヶ月</option><option value="6m">6ヶ月</option><option value="1y">1年</option><option value="all">全期間</option></select></label></div></div>
         <div class="graph-card">
-          <div class="tabs" id="homeGraphTabs">
-            <button type="button" data-home-range="1m">1ヶ月</button>
-            <button type="button" data-home-range="3m" class="active">3ヶ月</button>
-            <button type="button" data-home-range="6m">6ヶ月</button>
-            <button type="button" data-home-range="1y">1年</button>
-            <button type="button" data-home-range="all">全期間</button>
-          </div>
-          <div class="legend"><span><i></i>実測体重</span><span><i class="plan"></i>予定体重</span></div>
-          <svg id="homeChartSvg" class="chart" viewBox="0 0 760 330" role="img" aria-label="体重推移"></svg>
+          <svg id="homeChartSvg" class="chart" viewBox="0 0 760 265" role="img" aria-label="実測体重と予定体重の推移"></svg>
         </div>
       </section>
     </section>
@@ -389,7 +531,7 @@ button{touch-action:manipulation}
 
   async function refresh(silent=false){
     try{
-      if(!silent) document.body.classList.add('loading');
+      if(!silent && !data) document.body.classList.add('loading');
       const res=await api({action:'read'});
       if(!res || res.ok===false) throw new Error(res&&res.error?res.error:'データ形式が不正です。');
       data=res; saveCache(data); renderAll();
@@ -400,8 +542,25 @@ button{touch-action:manipulation}
 
   function renderAll(){
     if(!data) return;
-    if(page==='home') $('pageSubtitle').textContent=`${fmtDate(localIso())}　最終更新 ${data.generatedAt}`;
+    if(page==='home') $('pageSubtitle').textContent=`最終更新 ${data.generatedAt}`;
     renderHome(); renderHistory(); renderSettings(); drawHomeGraph(); if(page==='graph') drawGraph();
+  }
+
+  function getTodayPlanWeight(){
+    if(!data) return null;
+    const today=localIso();
+    const match=(data.history||[]).find(r=>r.date===today);
+    if(match && hasValue(match.plannedWeight)) return Number(match.plannedWeight);
+    const g=data.goals||{};
+    const phase=(date,a,b,w1,w2)=>{
+      const t=x=>new Date(x+'T00:00:00').getTime();
+      const full=Math.max(1,t(b)-t(a)); const frac=Math.max(0,Math.min(1,(t(date)-t(a))/full));
+      return Number(w1)*Math.pow(Number(w2)/Number(w1),frac);
+    };
+    if(today<=g.startDate) return Number(g.startWeight);
+    if(today<=g.goal1Date) return phase(today,g.startDate,g.goal1Date,g.startWeight,g.goal1Weight);
+    if(today<=g.goal2Date) return phase(today,g.goal1Date,g.goal2Date,g.goal1Weight,g.goal2Weight);
+    return Number(g.goal2Weight);
   }
 
   function renderHome(){
@@ -411,23 +570,25 @@ button{touch-action:manipulation}
       const d=Number(c.previousDiff), cls=d<0?'good':d>0?'bad':'neutral', arrow=d<0?'↓':d>0?'↑':'→', sign=d>0?'+':'';
       $('homePrev').innerHTML=`前回比 <b class="${cls}">${arrow} ${sign}${d.toFixed(2)}kg</b>`;
     } else $('homePrev').textContent='前回比 —';
-    $('homePlan').textContent=hasValue(p.weight)?`${Number(p.weight).toFixed(2)}kg`:'—';
-    const gap=Number(p.gap);
-    $('homeGap').textContent=Number.isFinite(gap)?`${gap>0?'+':''}${gap.toFixed(2)}kg`:'—';
-    $('homeGap').className=gap<0?'good':gap>0?'bad':'neutral';
+    const plannedToday=getTodayPlanWeight();
+    $('homePlan').textContent=hasValue(plannedToday)?`${Number(plannedToday).toFixed(2)}kg`:'—';
+    const gap=hasValue(plannedToday)&&hasValue(c.weight)?Number(c.weight)-Number(plannedToday):null;
+    $('homeGap').textContent=hasValue(gap)?`${gap>0?'+':''}${gap.toFixed(2)}kg`:'—';
+    $('homeGap').className=gap===null?'neutral':gap<0?'good':gap>0?'bad':'neutral';
 
     $('g1Top').textContent=hasValue(g.goal1Weight)?`${Number(g.goal1Weight).toFixed(1)}kg`:'—';
     $('g2Top').textContent=hasValue(g.goal2Weight)?`${Number(g.goal2Weight).toFixed(1)}kg`:'—';
     $('g1DateTop').textContent=fmtDate(g.goal1Date); $('g2DateTop').textContent=fmtDate(g.goal2Date);
-    $('goal1RemainPill').textContent=hasValue(g.goal1Remaining)?`残り ${Number(g.goal1Remaining).toFixed(2)}kg`:'残り —';
+    $('goal1RemainPill').textContent=hasValue(g.goal1Remaining)?`達成まで ${Number(g.goal1Remaining).toFixed(2)}kg`:'達成まで —';
 
     $('recentGrid').innerHTML=(data.recent7||[]).map(r=>{
       const [y,m,d]=r.date.split('-').map(Number), day=new Date(y,m-1,d).getDay();
       const weightText=hasValue(r.weight)?`${Number(r.weight).toFixed(1)}kg`:'—';
-      return `<div class="recent ${day===0?'sun':day===6?'sat':''}"><div class="d">${fmtShort(r.date)}</div><div class="w">${weightText}</div></div>`;
+      const dateParts=r.date.split('-').map(Number);
+      return `<div class="recent ${day===0?'sun':day===6?'sat':''}"><div class="d">${dateParts[1]}/${dateParts[2]}（${weekday[day]}）</div><div class="w">${weightText}</div></div>`;
     }).join('');
 
-    const startW=Number(g.startWeight), currentW=Number(c.weight), plannedW=Number(p.weight), goal1W=Number(g.goal1Weight);
+    const startW=Number(g.startWeight), currentW=Number(c.weight), plannedW=Number(plannedToday), goal1W=Number(g.goal1Weight);
     const actualLost=Math.max(0,startW-currentW);
     const plannedLost=Math.max(0,startW-plannedW);
     const totalToGoal=Math.max(0,startW-goal1W);
@@ -613,31 +774,69 @@ button{touch-action:manipulation}
 
   function drawHomeGraph(){
     if(!data || !$('homeChartSvg')) return;
-    const actual0=data.chart.actual||[], target0=data.chart.target||[];
-    if(!actual0.length){$('homeChartSvg').innerHTML='<text x="380" y="165" text-anchor="middle">データがありません</text>';return}
-    const endDate=actual0[actual0.length-1].date, end=new Date(endDate+'T00:00:00');
-    let start=new Date(end);
-    if(homeGraphRange==='1m') start.setMonth(start.getMonth()-1);
-    else if(homeGraphRange==='3m') start.setMonth(start.getMonth()-3);
-    else if(homeGraphRange==='6m') start.setMonth(start.getMonth()-6);
-    else if(homeGraphRange==='1y') start.setFullYear(start.getFullYear()-1);
-    else start=new Date((data.goals.startDate)+'T00:00:00');
-    const minT=start.getTime(), maxT=end.getTime();
-    const actual=actual0.filter(p=>new Date(p.date+'T00:00:00').getTime()>=minT);
-    const target=target0.filter(p=>{const t=new Date(p.date+'T00:00:00').getTime();return t>=minT&&t<=maxT});
-    const vals=[...actual,...target].map(p=>Number(p.weight)).filter(Number.isFinite);
-    if(!vals.length) return;
-    const minV=Math.floor((Math.min(...vals)-2)/5)*5,maxV=Math.ceil((Math.max(...vals)+2)/5)*5;
-    const W=760,H=330,m={l:48,r:18,t:20,b:40},iw=W-m.l-m.r,ih=H-m.t-m.b;
-    const x=d=>m.l+((new Date(d+'T00:00:00').getTime()-minT)/(maxT-minT||1))*iw;
-    const y=v=>m.t+(1-(Number(v)-minV)/(maxV-minV||1))*ih;
-    const path=a=>a.map((p,i)=>`${i?'L':'M'}${x(p.date).toFixed(1)},${y(p.weight).toFixed(1)}`).join(' ');
-    let h='';
-    for(let i=0;i<=4;i++){const v=minV+(maxV-minV)*i/4,yy=y(v);h+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="#eceaf5"/><text x="${m.l-8}" y="${yy+4}" text-anchor="end" fill="#655f7b" font-size="11">${v.toFixed(0)}</text>`}
-    for(let i=0;i<=5;i++){const t=minT+(maxT-minT)*i/5,d=new Date(t),xx=m.l+(t-minT)/(maxT-minT||1)*iw;h+=`<line x1="${xx}" y1="${m.t}" x2="${xx}" y2="${H-m.b}" stroke="#f3f1fa"/><text x="${xx}" y="${H-13}" text-anchor="middle" fill="#655f7b" font-size="10">${d.getFullYear()}/${d.getMonth()+1}</text>`}
-    h+=`<path d="${path(target)}" fill="none" stroke="#ff5791" stroke-width="2.5" stroke-dasharray="7 6"/><path d="${path(actual)}" fill="none" stroke="#6846df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
-    h+=actual.map(p=>`<circle cx="${x(p.date)}" cy="${y(p.weight)}" r="4" fill="#6846df"/>`).join('');
-    $('homeChartSvg').innerHTML=h;
+    const actual0=(data.chart&&data.chart.actual)||[], target0=(data.chart&&data.chart.target)||[];
+    if(!actual0.length) { $('homeChartSvg').innerHTML='<text x="380" y="135" text-anchor="middle" font-size="22">データがありません</text>';return; }
+    const parse=x=>new Date(x+'T00:00:00').getTime();
+    const goal1=data.goals.goal1Date;
+    const today=actual0[actual0.length-1].date;
+    const endTime=parse(today);let startTime;
+    if(homeGraphRange==='all') startTime=parse(data.goals.startDate);
+    else {
+      const months=homeGraphRange==='1m'?1:homeGraphRange==='3m'?3:homeGraphRange==='6m'?6:12;
+      const d=new Date(today+'T00:00:00');d.setMonth(d.getMonth()-months);
+      startTime=Math.max(parse(data.goals.startDate),d.getTime());
+    }
+    const until=homeGraphRange==='all'?data.goals.goal2Date:goal1;
+    const maxTime=Math.max(endTime+86400000,parse(until));
+    const actual=actual0.filter(p=>parse(p.date)>=startTime && parse(p.date)<=maxTime);
+    const target=target0.filter(p=>parse(p.date)>=Math.max(startTime,endTime) && parse(p.date)<=maxTime);
+    const weights=[...actual,...target].map(p=>Number(p.weight)).filter(Number.isFinite);
+    if(!weights.length) return;
+    let minV=Math.floor((Math.min(...weights)-4)/5)*5;
+    let maxV=Math.ceil((Math.max(...weights)+4)/5)*5;
+    if(maxV===minV)maxV+=5;
+    const w=760,h=265, margin={l:48,r:20,t:48,b:35};
+    const iw=w-margin.l-margin.r, ih=h-margin.t-margin.b;
+    const x=v=>margin.l+((parse(v)-startTime)/(maxTime-startTime))*iw;
+    const y=v=>margin.t+(1-(Number(v)-minV)/(maxV-minV))*ih;
+    const path=pts=>pts.map((p,i)=>`${i?'L':'M'}${x(p.date).toFixed(1)},${y(p.weight).toFixed(1)}`).join(' ');
+    let svg=`<defs><linearGradient id="homeArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8158e8" stop-opacity=".21"/><stop offset="100%" stop-color="#8158e8" stop-opacity="0"/></linearGradient><filter id="bubbleShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#7454d7" flood-opacity=".15"/></filter></defs>`;
+    for(let i=0;i<=4;i++){
+      const v=minV+(maxV-minV)*i/4, yy=y(v);
+      svg+=`<line x1="${margin.l}" x2="${w-margin.r}" y1="${yy}" y2="${yy}" stroke="#e6e2f3"/><text x="${margin.l-9}" y="${yy+4}" font-size="12" text-anchor="end" fill="#554779">${v.toFixed(0)}</text>`;
+    }
+    const ms=new Date(startTime);
+    ms.setDate(1);ms.setMonth(ms.getMonth()+1);
+    const months=[];for(let i=0;i<24;i++){
+      const d=new Date(ms);d.setMonth(ms.getMonth()+i);if(d.getTime()>maxTime)break;months.push(d)
+    }
+    const showEvery=months.length>9?2:1;
+    months.forEach((d,i)=>{
+      const dt=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-01`,px=x(dt);
+      svg+=`<line x1="${px}" x2="${px}" y1="${margin.t}" y2="${h-margin.b}" stroke="#efecf9"/>`;
+      if(i%showEvery===0) svg+=`<text x="${px}" y="${h-10}" font-size="13" text-anchor="middle" fill="#40316e">${d.getMonth()+1}月</text>`;
+    });
+    svg+=`<text x="8" y="${margin.t+3}" font-size="11" fill="#594682">(kg)</text>`;
+    if(actual.length>1){
+      const base=h-margin.b, points=actual.map(p=>`${x(p.date).toFixed(1)},${y(p.weight).toFixed(1)}`).join(' ');
+      svg+=`<path d="M${points.replaceAll(' ', ' L')} L${x(actual[actual.length-1].date)},${base} L${x(actual[0].date)},${base}Z" fill="url(#homeArea)"/>`;
+    }
+    if(target.length>1)svg+=`<path d="${path(target)}" fill="none" stroke="#f43e8e" stroke-width="2.7" stroke-dasharray="8 6"/>`;
+    if(actual.length>1)svg+=`<path d="${path(actual)}" fill="none" stroke="#6b40df" stroke-width="3.1" stroke-linejoin="round" stroke-linecap="round"/>`;
+    actual.forEach(p=>svg+=`<circle cx="${x(p.date)}" cy="${y(p.weight)}" r="3.6" fill="#6f45df" stroke="white" stroke-width="1.2"/>`);
+    const curr=actual[actual.length-1],cx=x(curr.date),cy=y(curr.weight);
+    svg+=`<line x1="${cx}" x2="${cx}" y1="${cy}" y2="${h-margin.b}" stroke="#9f85ee" stroke-width="1.6" stroke-dasharray="4 4"/><circle cx="${cx}" cy="${cy}" r="8" fill="#7048e8" stroke="white" stroke-width="3"/>`;
+    // compact tooltip stays inside SVG bounds
+    const bubbleW=107,bubbleH=46, bx=Math.max(7,Math.min(w-bubbleW-5,cx-bubbleW/2)), by=Math.max(0,cy-bubbleH-23);
+    svg+=`<g filter="url(#bubbleShadow)"><rect x="${bx}" y="${by}" width="${bubbleW}" height="${bubbleH}" rx="14" fill="#7548e6"/></g><text x="${bx+bubbleW/2}" y="${by+20}" text-anchor="middle" font-size="19" font-weight="900" fill="white">${Number(curr.weight).toFixed(2)}kg</text><text x="${bx+bubbleW/2}" y="${by+36}" text-anchor="middle" font-size="13" fill="white">(${Number(curr.date.slice(5,7))}/${Number(curr.date.slice(8,10))})</text>`;
+    const goalPoint=target.find(p=>p.date===goal1);
+    if(goalPoint){
+      const gx=x(goal1),gy=y(goalPoint.weight);
+      svg+=`<circle cx="${gx}" cy="${gy}" r="8" fill="#ff3184" stroke="white" stroke-width="3"/>`;
+      const gw=89,gx0=Math.max(3,Math.min(w-gw-3,gx-gw/2)),gy0=Math.max(0,gy-72);
+      svg+=`<rect x="${gx0}" y="${gy0}" width="${gw}" height="53" rx="13" fill="#fff0f5"/><text x="${gx0+gw/2}" y="${gy0+19}" text-anchor="middle" font-size="13" font-weight="800" fill="#f12c70">第1目標</text><text x="${gx0+gw/2}" y="${gy0+39}" text-anchor="middle" font-size="17" font-weight="900" fill="#ec2768">${Number(data.goals.goal1Weight).toFixed(1)}kg</text>`;
+    }
+    $('homeChartSvg').innerHTML=svg;
   }
 
   function drawGraph(){
@@ -679,6 +878,7 @@ button{touch-action:manipulation}
 
   document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
   document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.goto)));
+  $('achievementHelp').addEventListener('click',()=>alert('計画達成度＝（開始体重－現在体重）÷（開始体重－今日の予定体重）×100\n\n100%が計画どおり。体重が変わらず日数が経過すると、この値は低下します。'));
   $('historySort').addEventListener('click',()=>{historyNewest=!historyNewest;renderHistory()});
   $('slotMorning').addEventListener('click',()=>setSlot('朝')); $('slotNight').addEventListener('click',()=>setSlot('夜'));
   $('recordDate').addEventListener('change',()=>{
@@ -696,7 +896,7 @@ button{touch-action:manipulation}
   $('clearCache').addEventListener('click',()=>{localStorage.removeItem(CACHE_KEY);toast('表示キャッシュを削除しました')});
   $('authConfirm').addEventListener('click',finishAuth); $('authCancel').addEventListener('click',cancelAuth);
   $('graphTabs').addEventListener('click',e=>{const b=e.target.closest('[data-range]');if(!b)return;graphRange=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.classList.toggle('active',x===b));drawGraph()});
-  $('homeGraphTabs').addEventListener('click',e=>{const b=e.target.closest('[data-home-range]');if(!b)return;homeGraphRange=b.dataset.homeRange;document.querySelectorAll('[data-home-range]').forEach(x=>x.classList.toggle('active',x===b));drawHomeGraph()});
+  $('homeGraphSelect').addEventListener('change',e=>{homeGraphRange=e.target.value;drawHomeGraph()});
 
   setInterval(()=>{$('recordClock').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})},1000);
   $('recordClock').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
