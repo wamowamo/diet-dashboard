@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#7350e4">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v16-goal-trigger-unified-header">
+  <meta name="diet-dashboard-build" content="v17-mobile-layout-cutoff-fix">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -87,7 +90,7 @@ button{touch-action:manipulation}
 .achievement-note{margin-top:12px;padding:10px 11px;border-radius:13px;background:#fff0f5;color:#dd315f;font-size:11px;font-weight:750;line-height:1.45}
 .achievement-subgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .achievement-sub{border:1px solid #e5e2f2;border-radius:14px;padding:10px;background:#fff;min-width:0}.achievement-sub span{font-size:10px;font-weight:850;color:#645a88}.achievement-sub b{display:block;margin-top:4px;font-size:19px;white-space:nowrap}.achievement-sub small{display:block;margin-top:4px;font-size:9px;color:#7a748e}
-.home-recent .card-head{min-height:48px}.home-recent .recent-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px 12px 12px}.home-recent .recent{border-radius:15px;min-width:0}.home-recent .recent .d{padding:7px 2px;font-size:11px}.home-recent .recent .w{padding:9px 2px;font-size:16px;white-space:nowrap;letter-spacing:-.025em}.home-recent .recent:nth-child(7){grid-column:auto}
+.home-recent .card-head{min-height:48px}.home-recent .recent-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px 12px 12px}.home-recent .recent{border-radius:15px;min-width:0}.home-recent .recent .d{padding:7px 2px;font-size:11px}.home-recent .recent .w{padding:9px 2px;font-size:16px;white-space:nowrap;letter-spacing:-.025em}.home-recent .recent:nth-child(7){grid-column:auto!important}
 .goal-settings-card .card-head{min-height:48px}.goal-settings-wrap{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:10px 12px 12px}.goal-box{position:relative;border:1px solid #e7e3f4;border-radius:16px;padding:12px;background:#fff;min-width:0}.goal-box.g1{background:linear-gradient(135deg,#fff7fa,#fff)}.goal-box.g2{background:linear-gradient(135deg,#f4fff9,#fff)}.goal-badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900}.goal-box.g1 .goal-badge{background:#ffe8f0;color:#e83268}.goal-box.g2 .goal-badge{background:#e8fff4;color:#0b9f64}.goal-box strong{display:block;font-size:26px;margin-top:8px;white-space:nowrap}.goal-box .date{font-size:12px;margin-top:5px;color:#37305d}.goal-box .remain-pill{position:absolute;right:9px;top:10px;padding:5px 7px;border-radius:10px;background:#fff0f5;color:#e7336a;font-size:9px;font-weight:900}
 .home-trend-card .card-head{min-height:48px}.home-trend-card .graph-card{padding:10px 12px 12px;border:0;box-shadow:none;margin:0;border-radius:0}.home-trend-card .tabs{max-width:310px;margin-left:auto}.home-trend-card .tabs button{font-size:10px;padding:8px 2px}.home-trend-card .chart{max-height:260px}
 .home-dashboard .stats,.home-dashboard .goals-panel-old{display:none!important}
@@ -103,7 +106,7 @@ button{touch-action:manipulation}
   .home-mini-grid{gap:6px;margin-top:12px}.home-mini{padding:9px 7px}.home-mini b{font-size:16px}
   .achievement-value{font-size:clamp(46px,14vw,65px);margin:14px 0 6px}.achievement-status{font-size:14px;padding:5px 14px}
   .achievement-note{font-size:9.5px;padding:8px;margin-top:10px}.achievement-subgrid{gap:6px}.achievement-sub{padding:8px 7px}.achievement-sub b{font-size:16px}.achievement-sub small{font-size:8px}
-  .home-recent .recent-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.home-recent .recent:nth-child(7){grid-column:1 / 2}
+  .home-recent .recent-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.home-recent .recent{grid-column:auto!important}
   .goal-settings-wrap{grid-template-columns:1fr 1fr;gap:7px}.goal-box{padding:10px}.goal-box strong{font-size:22px}.goal-box .date{font-size:10px}.goal-box .remain-pill{font-size:8px;right:7px;top:8px}
 }
 
@@ -227,6 +230,12 @@ html,body{background:#f2f3ff}
 .goal2-status-pill{background:#f1eefb!important;color:#75699a!important}
 .goal-box.g2.current-goal .goal2-status-pill{background:#e5faef!important;color:#078b55!important}
 .goal-box.g1.completed-goal .remain-pill{background:#eafbf2;color:#078b55}
+/* v17: iPhone recent-7 must always be 4 + 3, never 4 + 2 + 1. */
+@media(max-width:700px){
+  .home-recent .recent-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-auto-flow:row!important}
+  .home-recent .recent{grid-column:auto!important;min-width:0!important}
+}
+
 /* retain normal tab and tools layout on the other four pages */
 @media(min-width:640px){
   .page.home-dashboard{padding:0 15px 18px;margin-top:-12px}.home-current{padding:15px 18px}.achievement-panel{padding:15px 18px}
@@ -446,7 +455,7 @@ html,body{background:#f2f3ff}
   const weekday = ['日','月','火','水','木','金','土'];
   const titles = {
     home:['ダイエット進捗',''],
-    record:['体重記録','朝／夜を自動選択・タップで変更できます'],
+    record:['体重記録',null],
     history:['体重の記録','予定体重と朝／夜の全記録'],
     graph:['グラフ','実測体重と予定体重の推移'],
     settings:['設定','目標と入力方法の設定']
@@ -492,7 +501,14 @@ html,body{background:#f2f3ff}
     document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===next));
     document.querySelectorAll('[data-nav]').forEach(x=>x.classList.toggle('active',x.dataset.nav===next));
     $('pageTitle').textContent=titles[next][0];
-    $('pageSubtitle').textContent=titles[next][1] || (data ? `最終更新 ${data.generatedAt}` : '読み込み中…');
+    const subtitle=titles[next][1];
+    if(subtitle===null){
+      $('pageSubtitle').textContent='';
+      $('pageSubtitle').hidden=true;
+    }else{
+      $('pageSubtitle').hidden=false;
+      $('pageSubtitle').textContent=subtitle || (data ? `最終更新 ${data.generatedAt}` : '読み込み中…');
+    }
     $('topbar').classList.toggle('compact',next!=='home');
     history.replaceState(null,'','#'+next);
     if(next==='record' && !record.date) resetRecord();
@@ -681,13 +697,21 @@ html,body{background:#f2f3ff}
     const g=data.goals,s=data.settings||{};
     $('settingG1Weight').value=g.goal1Weight; $('settingG1Date').value=g.goal1Date;
     $('settingG2Weight').value=g.goal2Weight; $('settingG2Date').value=g.goal2Date;
-    $('settingCutoff').value=s.morningCutoff||'12:00';
+    $('settingCutoff').value=normalizeCutoff(s.morningCutoff);
     $('settingPin').value='';
     $('cacheStatus').textContent=`最終データ更新: ${data.generatedAt}`;
   }
 
+  function normalizeCutoff(value){
+    const raw=String(value??'').trim();
+    let m=raw.match(/^(?:[01]\d|2[0-3]):[0-5]\d$/);
+    if(m) return raw;
+    m=raw.match(/\b([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d)?\b/);
+    if(m) return `${m[1]}:${m[2]}`;
+    return '12:00';
+  }
   function autoSlot(){
-    const cutoff=(data&&data.settings&&data.settings.morningCutoff)||'12:00';
+    const cutoff=normalizeCutoff(data&&data.settings&&data.settings.morningCutoff);
     const [h,m]=cutoff.split(':').map(Number), now=new Date(), mins=now.getHours()*60+now.getMinutes();
     return mins<(h*60+m)?'朝':'夜';
   }
