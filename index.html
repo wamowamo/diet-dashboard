@@ -8,7 +8,23 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗" />
   <title>ダイエット進捗</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="diet-dashboard-build" content="v5-single-20261021" />
+  <style>
+:root{
+  --ink:#171052;--purple:#6e43dc;--purple2:#8d69ee;--lav:#f2efff;--line:#e3e0f2;
+  --green:#09b56b;--pink:#ff3f7c;--blue:#416cf3;--orange:#ff7b19;--bg:#f5f7ff;
+}
+*{box-sizing:border-box}html{background:#eef2ff}body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:radial-gradient(circle at 50% 0,#fff 0,#f5f7ff 45%,#edf1fb 100%);-webkit-font-smoothing:antialiased}.app{width:min(100%,1040px);margin:0 auto;padding:8px 16px 22px}.hero{height:142px;border-radius:24px 24px 0 0;padding:20px 34px;display:flex;align-items:flex-start;gap:24px;position:relative;overflow:hidden;color:#fff;background:linear-gradient(110deg,#6a42d8,#8b62ec 58%,#7449dc);box-shadow:0 8px 25px rgba(72,48,160,.16)}.hero-bars{display:flex;gap:6px;align-items:end;height:54px;margin-top:10px}.hero-bars i{display:block;width:14px;background:#fff;border-radius:3px;box-shadow:0 3px 10px rgba(255,255,255,.25)}.hero-bars i:nth-child(1){height:25px}.hero-bars i:nth-child(2){height:38px}.hero-bars i:nth-child(3){height:52px}.hero-copy h1{margin:0;font-size:42px;line-height:1.08;letter-spacing:.02em}.hero-copy p{margin:14px 0 0;font-size:21px;font-weight:700}.gear{position:absolute;right:24px;top:22px;background:transparent;border:0;color:#fff;font-size:32px;cursor:default}.leaf{position:absolute;border:2px solid rgba(255,255,255,.18);border-radius:100% 0 100% 0;transform:rotate(-28deg)}.leaf1{right:76px;top:14px;width:72px;height:40px}.leaf2{right:32px;top:52px;width:80px;height:42px;transform:rotate(-58deg)}.leaf3{right:88px;top:74px;width:55px;height:28px;transform:rotate(22deg)}
+.error-banner{margin:12px 18px 0;padding:12px 14px;background:#fff2f4;border:1px solid #ffcbd5;color:#9b2e45;border-radius:14px;font-size:13px}.error-banner strong{display:block}.panel{margin-top:14px;background:#fff;border:1px solid #dedcf0;border-radius:20px;box-shadow:0 6px 18px rgba(57,41,120,.07);overflow:hidden}.panel-head{height:58px;padding:0 20px;display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#f0efff,#f8f7ff 70%,#f1efff)}.panel-head h2{margin:0;font-size:25px;color:#19105a}.head-icon{font-size:29px;color:#6849de;font-weight:900}.scale-icon{font-size:25px}
+.current-grid{display:grid;grid-template-columns:1.05fr 1fr;min-height:240px}.current-left{padding:22px 34px 18px;border-right:1px solid #d9d7e7;display:flex;flex-direction:column}.big-weight{display:flex;align-items:baseline;gap:8px;color:#2b087d}.big-weight span{font-size:82px;line-height:1;font-weight:900;letter-spacing:-.045em}.big-weight small{font-size:38px;font-weight:900}.previous{margin-top:20px;display:flex;align-items:center;gap:18px;font-size:26px}.previous strong{font-size:31px}.previous.good strong{color:var(--green)}.previous.bad strong{color:#df4058}.previous.neutral strong{color:#77718b}.current-summary-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.summary-mini-card{background:linear-gradient(180deg,#fbfbff,#f4f2ff);border:1px solid #e3e0f2;border-radius:16px;padding:12px 12px 10px;min-height:98px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}.summary-label{font-size:14px;font-weight:800;color:#6a5ca2}.summary-mini-card strong{font-size:26px;line-height:1.08;color:#25106f}.summary-mini-card small{font-size:12px;color:#7b7692;line-height:1.35}.summary-mini-card.good strong,.summary-mini-card.good small{color:var(--green)}.summary-mini-card.bad strong,.summary-mini-card.bad small{color:#df4058}.summary-mini-card.neutral strong{color:#6b6781}.current-goals{padding:16px 28px 12px}.mini-title{font-size:20px;font-weight:800}.diff-value{display:flex;align-items:baseline;gap:5px;margin-top:2px}.diff-value strong{font-size:42px;line-height:1;color:#1b0c68}.diff-value small{font-size:24px;font-weight:800}.goal-chip-row{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:20px}.chip{padding:5px 12px;border-radius:999px;font-weight:800}.chip.pink{color:#fff;background:#ff5b8d}.chip.soft{background:#ececfa}.goal-weight-top{font-size:25px;font-weight:900;margin-top:6px}.goal-diff.second{border-top:1px solid #d9d7e7;margin-top:10px;padding-top:9px}.goal2-line{display:flex;align-items:baseline;gap:14px;margin-top:6px;font-size:20px}.goal2-line strong{font-size:25px}
+.recent-panel .panel-head{height:62px}.recent-grid{padding:14px 22px 18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}.recent-card{border:1px solid #dadcf0;border-radius:12px;overflow:hidden;background:#fff;text-align:center}.recent-date{padding:10px 3px 8px;font-size:19px;line-height:1.25;background:#f3f4ff}.recent-value{padding:10px 3px 12px;font-size:23px;font-weight:900}.recent-card.saturday .recent-date{background:#e9f5ff;color:#196eea}.recent-card.sunday .recent-date{background:#ffedf5;color:#ff2f70}
+.goal-row{display:grid;grid-template-columns:39% 61%;align-items:center;padding:14px 20px;border-top:1px solid #f0eef7}.goal-row.phase1{background:linear-gradient(90deg,#fbfbff,#fff)}.goal-row.phase2{background:linear-gradient(90deg,#eefcf6,#fff)}.goal-row-copy{padding-right:18px}.goal-row-title{display:flex;gap:16px;align-items:baseline}.goal-row-title span{font-size:21px;font-weight:900;color:#2f65e9}.phase2 .goal-row-title span{color:#0ba96b}.goal-row-title strong{font-size:24px}.goal-row-meta{display:flex;gap:10px;margin-top:8px;font-size:18px}.progress-side{display:grid;grid-template-columns:1fr 94px;align-items:center;gap:12px}.progress-track{height:26px;border-radius:99px;background:#e6e7ef;overflow:hidden}.progress-fill{height:100%;width:0;border-radius:99px;transition:width .35s ease}.progress-fill.purple{background:linear-gradient(90deg,#7549e7,#a077ff)}.progress-fill.green{background:linear-gradient(90deg,#19c980,#41df9d)}.progress-pct{font-size:33px;font-weight:900;text-align:right}.purple-text{color:#38158e}.green-text{color:#09a964}.progress-caption{grid-column:1/-1;font-size:16px;margin-top:-4px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}.stat-card{min-height:160px;border-radius:16px;padding:18px 16px;display:grid;grid-template-columns:54px 1fr;gap:10px;align-items:start;border:1px solid rgba(40,35,80,.05)}.stat-card>div:last-child{display:flex;flex-direction:column;min-width:0}.stat-card span{font-size:17px;font-weight:800}.stat-card span small{display:block;font-size:12px;font-weight:700;margin-top:2px}.stat-card strong{font-size:36px;line-height:1.1;margin-top:14px}.stat-card small{font-size:14px;margin-top:10px}.stat-symbol{font-size:48px;line-height:1;font-weight:900;text-align:center}.pink-card{background:linear-gradient(135deg,#ffeef4,#fff8fb);color:#3a185d}.pink-card .stat-symbol,.pink-card>div>span{color:#f43b79}.mint-card{background:linear-gradient(135deg,#e8fff3,#f8fffb)}.mint-card .stat-symbol,.mint-card>div>span{color:#0bb974}.peach-card{background:linear-gradient(135deg,#fff0e5,#fffaf5)}.peach-card .stat-symbol,.peach-card>div>span{color:#ff7816}.blue-card{background:linear-gradient(135deg,#ebf1ff,#f9fbff)}.blue-card .stat-symbol,.blue-card>div>span{color:#416cf3}
+.chart-panel{padding-bottom:12px}.chart-head{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f0efff,#f8f7ff)}.chart-head .panel-head{background:transparent;flex:1}.range-tabs{display:grid;grid-template-columns:repeat(4,1fr);margin-right:16px;border:1px solid #d5d2ec;border-radius:10px;overflow:hidden;background:#fff}.range-tabs button{border:0;border-right:1px solid #d5d2ec;background:#fff;color:#2a1b76;padding:10px 18px;font-size:14px;font-weight:800;cursor:pointer}.range-tabs button:last-child{border-right:0}.range-tabs button.active{color:#fff;background:linear-gradient(90deg,#7650e3,#8a61e9)}.chart-legend{display:flex;justify-content:flex-end;gap:18px;align-items:center;padding:10px 22px 0;font-size:13px}.chart-legend span{display:flex;align-items:center;gap:6px}.dot.actual{width:10px;height:10px;background:#6846df;border-radius:50%;display:inline-block}.line{display:inline-block;width:28px;border-top:3px dashed}.line.phase1{border-color:#ff5791}.line.phase2{border-color:#00b86e}.chart-wrap{padding:2px 14px 0;overflow:hidden}.chart-wrap svg{width:100%;height:auto;display:block}.footer{display:flex;justify-content:space-between;align-items:center;padding:16px 8px 4px;font-size:12px;color:#77718b}.footer button{border:0;background:#ece8ff;color:#5236a9;border-radius:999px;padding:8px 13px;font-weight:800}
+@media(max-width:760px){.app{padding:0 7px 16px}.hero{height:118px;padding:18px 20px;gap:14px}.hero-copy h1{font-size:30px}.hero-copy p{font-size:15px;margin-top:9px}.hero-bars{height:42px}.hero-bars i{width:10px}.hero-bars i:nth-child(1){height:20px}.hero-bars i:nth-child(2){height:30px}.hero-bars i:nth-child(3){height:40px}.gear{font-size:25px}.panel-head{height:46px;padding:0 12px}.panel-head h2{font-size:19px}.head-icon{font-size:22px}.current-grid{min-height:190px;grid-template-columns:1.08fr .92fr}.current-left{padding:18px 14px}.big-weight span{font-size:51px}.big-weight small{font-size:25px}.previous{font-size:17px;gap:9px;margin-top:16px}.previous strong{font-size:20px}.current-summary-grid{margin-top:14px;grid-template-columns:1fr;gap:8px}.summary-mini-card{min-height:auto;padding:10px 10px 9px;border-radius:14px}.summary-label{font-size:11px}.summary-mini-card strong{font-size:20px}.summary-mini-card small{font-size:10px}.current-goals{padding:13px 12px}.mini-title{font-size:14px}.diff-value strong{font-size:30px}.diff-value small{font-size:17px}.goal-chip-row{font-size:13px;gap:7px;flex-wrap:wrap}.chip{padding:4px 7px}.goal-weight-top,.goal2-line strong{font-size:18px}.goal2-line{font-size:13px;gap:7px;display:block}.goal2-line span{display:block;margin-top:4px}.recent-grid{gap:5px;padding:10px 8px 13px}.recent-date{font-size:12px;padding:7px 1px}.recent-value{font-size:14px;padding:8px 1px}.goal-row{grid-template-columns:42% 58%;padding:12px 10px}.goal-row-title{gap:7px;flex-wrap:wrap}.goal-row-title span{font-size:14px}.goal-row-title strong{font-size:15px}.goal-row-meta{font-size:11px;display:block}.progress-side{grid-template-columns:1fr 56px;gap:7px}.progress-track{height:18px}.progress-pct{font-size:20px}.progress-caption{font-size:10px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat-card{min-height:148px;padding:12px 10px;grid-template-columns:28px 1fr;gap:6px;align-items:start}.stat-symbol{font-size:24px}.stat-card span{font-size:12px;line-height:1.25}.stat-card span small{font-size:9px}.stat-card strong{font-size:20px;margin-top:9px;line-height:1.1;word-break:break-word}.stat-card small{font-size:10px;margin-top:7px;line-height:1.35}.chart-head{display:block}.range-tabs{margin:0 10px 7px}.range-tabs button{padding:7px 4px;font-size:11px}.chart-legend{padding:6px 10px 0;gap:8px;font-size:9px;flex-wrap:wrap}.chart-wrap{padding:0 2px}.footer{padding:12px 5px 2px}}
+@media(max-width:420px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.stat-card{min-height:142px;padding:10px 8px}.stat-card strong{font-size:18px}.current-grid{grid-template-columns:1fr 1fr}.big-weight span{font-size:48px}.big-weight small{font-size:23px}}
+
+  </style>
 </head>
 <body>
   <main class="app" id="app" aria-live="polite">
@@ -136,7 +152,116 @@
 
     <footer class="footer"><span id="updatedAt">最終更新：—</span><button id="refreshButton" type="button">再読み込み</button></footer>
   </main>
-  <script src="config.js"></script>
-  <script src="script.js"></script>
+  <script>
+window.DIET_DASHBOARD_CONFIG = { DATA_ENDPOINT: 'http://127.0.0.1:8765/api', DEMO_WHEN_UNCONFIGURED:false };
+
+  </script>
+  <script>
+(() => {
+  'use strict';
+  const CONFIG = window.DIET_DASHBOARD_CONFIG || {};
+  const $ = id => document.getElementById(id);
+  const weekdayJa = ['日','月','火','水','木','金','土'];
+  let currentData = null;
+  let chartRange = '6m';
+
+  const fmtDateLong = iso => { if(!iso) return '—'; const d=new Date(`${iso}T00:00:00`); return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`; };
+  const fmtKg = (v,d=2) => Number.isFinite(Number(v)) ? `${Number(v).toFixed(d)} kg` : '—';
+  const pct = v => `${(Math.max(0,Math.min(1,Number(v)||0))*100).toFixed(1)}%`;
+
+  function showError(msg){ $('bannerTitle').textContent='データを取得できませんでした。'; $('errorText').textContent=msg; $('errorBanner').hidden=false; }
+  function hideError(){ $('errorBanner').hidden=true; }
+  function setDiff(el,value,label='前回比'){
+    const v=Number(value); el.className='previous neutral';
+    if(!Number.isFinite(v)){el.innerHTML=`<span>${label}</span><strong>—</strong>`;return;}
+    const arrow=v<0?'↓':v>0?'↑':'→'; const sign=v>0?'+':'';
+    el.className=`previous ${v<0?'good':v>0?'bad':'neutral'}`;
+    el.innerHTML=`<span>${label}</span><strong>${arrow} ${sign}${v.toFixed(2)} kg</strong>`;
+  }
+
+  function renderRecent(items){
+    const grid=$('recentGrid'); grid.innerHTML='';
+    (items||[]).forEach(item=>{
+      const d=new Date(`${item.date}T00:00:00`), day=d.getDay();
+      const card=document.createElement('article'); card.className=`recent-card${day===0?' sunday':day===6?' saturday':''}`;
+      const w=Number.isFinite(Number(item.weight))?`${Number(item.weight).toFixed(1)} kg`:'—';
+      card.innerHTML=`<div class="recent-date">${d.getMonth()+1}/${d.getDate()}<br>(${weekdayJa[day]})</div><div class="recent-value">${w}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function render(data){
+    currentData=data; hideError();
+    const now=new Date(); $('todayText').textContent=`▣  ${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（${weekdayJa[now.getDay()]}）`;
+    $('currentWeight').textContent=Number(data.current.weight).toFixed(2); setDiff($('previousDiff'),data.current.previousDiff);
+    $('goal1RemainingTop').textContent=Number(data.goals.goal1Remaining).toFixed(2); $('goal2RemainingTop').textContent=Number(data.goals.goal2Remaining).toFixed(2);
+    $('goal1DateTop').textContent=fmtDateLong(data.goals.goal1Date); $('goal2DateTop').textContent=fmtDateLong(data.goals.goal2Date);
+    $('goal1WeightTop').textContent=fmtKg(data.goals.goal1Weight,2); $('goal2WeightTop').textContent=fmtKg(data.goals.goal2Weight,2);
+    renderRecent(data.recent7);
+
+    $('goal1StartLabel').textContent=`${Number(data.goals.startWeight).toFixed(0)}kg`; $('goal1EndLabel').textContent=`${Number(data.goals.goal1Weight).toFixed(0)}kg`;
+    $('goal2StartLabel').textContent=`${Number(data.goals.goal1Weight).toFixed(0)}kg`; $('goal2EndLabel').textContent=`${Number(data.goals.goal2Weight).toFixed(0)}kg`;
+    $('goal1Period').textContent=`${fmtDateLong(data.goals.startDate)} ～ ${fmtDateLong(data.goals.goal1Date)}`; $('goal2Period').textContent=`${fmtDateLong(data.goals.goal1Date)} ～ ${fmtDateLong(data.goals.goal2Date)}`;
+    $('goal1Days').textContent=data.goals.goal1DaysRemaining; $('goal2Days').textContent=data.goals.goal2DaysRemaining;
+    const p1=Math.max(0,Math.min(1,Number(data.goals.phase1Progress)||0)), p2=Math.max(0,Math.min(1,Number(data.goals.phase2Progress)||0));
+    $('goal1ProgressBar').style.width=`${p1*100}%`; $('goal2ProgressBar').style.width=`${p2*100}%`; $('goal1ProgressPct').textContent=pct(p1); $('goal2ProgressPct').textContent=pct(p2);
+    $('goal1StartCaption').textContent=fmtKg(data.goals.startWeight,1); $('goal1EndCaption').textContent=fmtKg(data.goals.goal1Weight,1); $('goal1RemainCaption').textContent=fmtKg(data.goals.goal1Remaining,2);
+    $('goal2StartCaption').textContent=fmtKg(data.goals.goal1Weight,1); $('goal2EndCaption').textContent=fmtKg(data.goals.goal2Weight,1); $('goal2RemainCaption').textContent=fmtKg(data.goals.goal2Remaining,2);
+
+    $('bodyFat').textContent=Number.isFinite(Number(data.current.bodyFat))?`${Number(data.current.bodyFat).toFixed(1)}%`:'—';
+    $('bodyFatDiff').textContent='前回比 —';
+    $('lostWeight').textContent=fmtKg(data.stats.lostWeight,2); $('startWeightStat').textContent=`開始時 ${fmtKg(data.goals.startWeight,1)}`;
+    $('remainingWeight').textContent=fmtKg(data.goals.goal1Remaining,2); $('goal1Stat').textContent=`目標 ${fmtKg(data.goals.goal1Weight,2)}`;
+    $('remainingDays').textContent=`${data.goals.goal1DaysRemaining}日`; $('goal1DateStat').textContent=`${fmtDateLong(data.goals.goal1Date)} まで`;
+    $('plannedWeightCard').textContent=fmtKg(data.plan.weight,2); $('plannedDateCard').textContent=`${fmtDateLong(data.current.date)} 時点`;
+    const gap=Number(data.plan.gap); const gapCard=$('planGapCard');
+    if(Number.isFinite(gap)){
+      const gapAbs=Math.abs(gap).toFixed(2);
+      if(gap<0){ gapCard.className='summary-mini-card gap-card good'; $('plannedGapCard').textContent=`-${gapAbs} kg`; $('plannedGapStatus').textContent='予定より先行'; }
+      else if(gap>0){ gapCard.className='summary-mini-card gap-card bad'; $('plannedGapCard').textContent=`+${gapAbs} kg`; $('plannedGapStatus').textContent='予定より遅れ'; }
+      else { gapCard.className='summary-mini-card gap-card neutral'; $('plannedGapCard').textContent='±0.00 kg'; $('plannedGapStatus').textContent='予定どおり'; }
+    } else { gapCard.className='summary-mini-card gap-card neutral'; $('plannedGapCard').textContent='—'; $('plannedGapStatus').textContent='—'; }
+    $('currentSlotCard').textContent = data.current.slot ? `${data.current.slot}の軽い方` : '—'; $('currentDateCard').textContent = fmtDateLong(data.current.date);
+    $('updatedAt').textContent=`最終更新：${data.generatedAt||'—'}`;
+    drawChart();
+  }
+
+  function filterByRange(arr,endIso,range){
+    if(range==='all'||!endIso) return arr;
+    const end=new Date(`${endIso}T00:00:00`); const start=new Date(end);
+    if(range==='3m') start.setMonth(start.getMonth()-3); else if(range==='6m') start.setMonth(start.getMonth()-6); else start.setFullYear(start.getFullYear()-1);
+    return arr.filter(p=>new Date(`${p.date}T00:00:00`)>=start && new Date(`${p.date}T00:00:00`)<=end);
+  }
+
+  function drawChart(){
+    if(!currentData) return;
+    const svg=$('weightChart'); const chart=currentData.chart||{}; const actual0=Array.isArray(chart.actual)?chart.actual:[]; const target0=Array.isArray(chart.target)?chart.target:[];
+    const endIso=chartRange==='all'?currentData.goals.goal2Date:(actual0.length?actual0[actual0.length-1].date:currentData.current.date);
+    let actual=filterByRange(actual0,endIso,chartRange), target=filterByRange(target0,chartRange==='all'?currentData.goals.goal2Date:endIso,chartRange);
+    if(chartRange==='all'){actual=actual0;target=target0;}
+    const all=[...actual,...target].filter(p=>p&&p.date&&Number.isFinite(Number(p.weight)));
+    if(!all.length){svg.innerHTML='<text x="380" y="150" text-anchor="middle" fill="#8a839b" font-size="16">グラフデータがありません</text>';return;}
+    const W=760,H=300,m={l:50,r:26,t:18,b:44},iw=W-m.l-m.r,ih=H-m.t-m.b;
+    const times=all.map(p=>new Date(`${p.date}T00:00:00`).getTime()), vals=all.map(p=>Number(p.weight)); let minX=Math.min(...times),maxX=Math.max(...times); if(minX===maxX)maxX+=86400000;
+    const minV0=Math.min(...vals),maxV0=Math.max(...vals), pad=Math.max(2,(maxV0-minV0)*.08); const minV=Math.floor((minV0-pad)/5)*5,maxV=Math.ceil((maxV0+pad)/5)*5;
+    const x=d=>m.l+((new Date(`${d}T00:00:00`).getTime()-minX)/(maxX-minX))*iw, y=v=>m.t+(1-(Number(v)-minV)/(maxV-minV))*ih;
+    const path=a=>a.length?a.map((p,i)=>`${i?'L':'M'}${x(p.date).toFixed(1)},${y(p.weight).toFixed(1)}`).join(' '):'';
+    const g1=currentData.goals.goal1Date; const t1=target.filter(p=>p.date<=g1), t2=target.filter(p=>p.date>=g1);
+    let html=''; for(let i=0;i<=5;i++){const value=minV+(maxV-minV)*i/5,yy=y(value);html+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="#e8e6f2"/><text x="${m.l-10}" y="${yy+5}" text-anchor="end" fill="#39306a" font-size="12">${value.toFixed(0)}</text>`;}
+    const ticks=6; for(let i=0;i<=ticks;i++){const t=minX+(maxX-minX)*i/ticks,d=new Date(t),xx=m.l+(t-minX)/(maxX-minX)*iw; html+=`<line x1="${xx}" y1="${m.t}" x2="${xx}" y2="${H-m.b}" stroke="#f0eef8"/><text x="${xx}" y="${H-16}" text-anchor="middle" fill="#39306a" font-size="11">${d.getFullYear()}/${d.getMonth()+1}</text>`;}
+    html+=`<path d="${path(t1)}" fill="none" stroke="#ff5791" stroke-width="2.5" stroke-dasharray="7 6"/><path d="${path(t2)}" fill="none" stroke="#00b86e" stroke-width="2.5" stroke-dasharray="7 6"/><path d="${path(actual)}" fill="none" stroke="#6846df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    html+=actual.map(p=>`<circle cx="${x(p.date)}" cy="${y(p.weight)}" r="4" fill="#6846df"/>`).join(''); html+=`<text x="11" y="24" fill="#39306a" font-size="12">体重</text><text x="11" y="39" fill="#39306a" font-size="12">(kg)</text>`;
+    const marker=(date,label1,label2,color,fill,side)=>{const p=target0.find(q=>q.date===date)||{date,weight:date===g1?currentData.goals.goal1Weight:currentData.goals.goal2Weight};const xx=x(p.date),yy=y(p.weight),bx=Math.max(80,Math.min(W-165,side==='right'?xx+18:xx-95));return `<circle cx="${xx}" cy="${yy}" r="5" fill="${color}"/><g><rect x="${bx}" y="${yy-72}" rx="12" width="140" height="60" fill="${fill}" stroke="${color}" stroke-opacity=".22"/><text x="${bx+70}" y="${yy-49}" text-anchor="middle" fill="${color}" font-size="14" font-weight="700">${label1}</text><text x="${bx+70}" y="${yy-29}" text-anchor="middle" fill="${color}" font-size="13">${label2}</text></g>`;};
+    const within=date=>{const t=new Date(`${date}T00:00:00`).getTime();return t>=minX&&t<=maxX;}; if(within(g1))html+=marker(g1,'第1目標 80kg',fmtDateLong(g1),'#ff3f7c','#fff0f5','right'); if(within(currentData.goals.goal2Date))html+=marker(currentData.goals.goal2Date,'第2目標 60kg',fmtDateLong(currentData.goals.goal2Date),'#00a96a','#ebfff6','left');
+    svg.innerHTML=html;
+  }
+
+  function loadJsonp(){return new Promise((resolve,reject)=>{const endpoint=CONFIG.DATA_ENDPOINT;if(!endpoint){reject(new Error('Apps Script URLが未設定です。'));return;}const cb=`dietDashboardCallback_${Date.now()}`,s=document.createElement('script');const timer=setTimeout(()=>cleanup(new Error('データ取得がタイムアウトしました。')),15000);function cleanup(err,data){clearTimeout(timer);delete window[cb];s.remove();err?reject(err):resolve(data);}window[cb]=data=>cleanup(null,data);s.onerror=()=>cleanup(new Error('Apps Scriptへの接続に失敗しました。'));s.src=`${endpoint}${endpoint.includes('?')?'&':'?'}callback=${encodeURIComponent(cb)}&_=${Date.now()}`;document.head.appendChild(s);});}
+  async function refresh(){ $('refreshButton').disabled=true; try{const data=await loadJsonp(); if(!data||data.ok===false)throw new Error(data&&data.error?data.error:'不明なデータ形式です。');render(data);}catch(e){showError(e.message||String(e));}finally{$('refreshButton').disabled=false;} }
+  document.querySelectorAll('.range-tabs button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.range-tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');chartRange=btn.dataset.range;drawChart();}));
+  $('refreshButton').addEventListener('click',refresh); refresh();
+})();
+
+  </script>
 </body>
 </html>
