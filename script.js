@@ -54,6 +54,15 @@
     $('lostWeight').textContent=fmtKg(data.stats.lostWeight,2); $('startWeightStat').textContent=`開始時 ${fmtKg(data.goals.startWeight,1)}`;
     $('remainingWeight').textContent=fmtKg(data.goals.goal1Remaining,2); $('goal1Stat').textContent=`目標 ${fmtKg(data.goals.goal1Weight,2)}`;
     $('remainingDays').textContent=`${data.goals.goal1DaysRemaining}日`; $('goal1DateStat').textContent=`${fmtDateLong(data.goals.goal1Date)} まで`;
+    $('plannedWeightCard').textContent=fmtKg(data.plan.weight,2); $('plannedDateCard').textContent=`${fmtDateLong(data.current.date)} 時点`;
+    const gap=Number(data.plan.gap); const gapCard=$('planGapCard');
+    if(Number.isFinite(gap)){
+      const gapAbs=Math.abs(gap).toFixed(2);
+      if(gap<0){ gapCard.className='summary-mini-card gap-card good'; $('plannedGapCard').textContent=`-${gapAbs} kg`; $('plannedGapStatus').textContent='予定より先行'; }
+      else if(gap>0){ gapCard.className='summary-mini-card gap-card bad'; $('plannedGapCard').textContent=`+${gapAbs} kg`; $('plannedGapStatus').textContent='予定より遅れ'; }
+      else { gapCard.className='summary-mini-card gap-card neutral'; $('plannedGapCard').textContent='±0.00 kg'; $('plannedGapStatus').textContent='予定どおり'; }
+    } else { gapCard.className='summary-mini-card gap-card neutral'; $('plannedGapCard').textContent='—'; $('plannedGapStatus').textContent='—'; }
+    $('currentSlotCard').textContent = data.current.slot ? `${data.current.slot}の軽い方` : '—'; $('currentDateCard').textContent = fmtDateLong(data.current.date);
     $('updatedAt').textContent=`最終更新：${data.generatedAt||'—'}`;
     drawChart();
   }
