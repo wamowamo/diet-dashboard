@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v10-input-fix-20261021">
+  <meta name="diet-dashboard-build" content="v11-compact-history-record-20261021">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -36,23 +36,23 @@ button{touch-action:manipulation}
 .card-head{min-height:52px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(90deg,#f0efff,#faf9ff 70%,#f1efff)}
 .card-head h2{margin:0;font-size:20px}.card-head .more{border:1px solid #d9d3f4;background:#fff;color:#5b3bb9;border-radius:999px;padding:8px 11px;font-weight:800;font-size:12px}
 .current-grid{display:grid;grid-template-columns:1.1fr .9fr}
-.current-main{padding:20px 18px;border-right:1px solid var(--line)}
-.current-label{font-size:13px;font-weight:800;color:#655b8b}
-.big-weight{display:flex;align-items:baseline;gap:6px;margin-top:4px;color:#2a087f}.big-weight strong{font-size:62px;line-height:1;font-weight:900;letter-spacing:-.05em}.big-weight span{font-size:26px;font-weight:900}
-.prev{margin-top:14px;font-size:16px}.prev b{font-size:21px;margin-left:8px}.good{color:var(--green)!important}.bad{color:var(--red)!important}.neutral{color:#77718b!important}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}.quick{border:1px solid #e4e0f2;background:#faf9ff;border-radius:14px;padding:10px}.quick span{font-size:10px;font-weight:800;color:#75699c;display:block}.quick b{font-size:18px;display:block;margin-top:4px}
-.goal-stack{padding:16px 14px}.goal-stack .title{font-size:13px;font-weight:800}.goal-stack .remain{font-size:31px;font-weight:900;margin:3px 0 10px}.goal-chip{display:inline-block;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900}.goal-chip.g1{background:#ffedf4;color:#e83470}.goal-chip.g2{background:#eefcf5;color:#0a9d61}.goal-line{margin-top:8px;padding-bottom:10px;border-bottom:1px solid #ece9f5}.goal-line:last-child{border:0;padding-bottom:0}.goal-line b{display:block;font-size:20px;margin-top:4px}
-.recent-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;padding:10px}.recent{border:1px solid #dfe0f1;border-radius:12px;overflow:hidden;text-align:center}.recent .d{padding:7px 2px;background:#f4f4ff;font-size:11px;line-height:1.3}.recent .w{padding:9px 2px;font-size:13px;font-weight:900}.recent.sat .d{background:#eaf5ff;color:#1b6dde}.recent.sun .d{background:#fff0f5;color:#e62f63}
-.progress-row{padding:14px 15px;border-top:1px solid #f0eef7}.progress-row:first-of-type{border-top:0}.phase2{background:linear-gradient(90deg,#effcf6,#fff)}.progress-title{display:flex;justify-content:space-between;gap:12px;align-items:center}.progress-title strong{font-size:17px}.progress-title span{font-size:13px;font-weight:900}.progress-barline{display:grid;grid-template-columns:1fr 60px;gap:10px;align-items:center;margin-top:10px}.track{height:18px;background:#e7e8ef;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7549e7,#a077ff)}.fill.green{background:linear-gradient(90deg,#19c980,#41df9d)}.pct{font-size:20px;font-weight:900;text-align:right}.caption{font-size:11px;margin-top:7px;color:#4a426a}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{min-height:122px;border-radius:18px;padding:13px;border:1px solid rgba(50,40,90,.05)}.stat span{display:block;font-size:12px;font-weight:900}.stat b{display:block;font-size:25px;margin-top:9px}.stat small{display:block;font-size:10px;margin-top:7px}.stat.pink{background:#fff0f5}.stat.mint{background:#ebfff5}.stat.peach{background:#fff1e6}.stat.blue{background:#eef3ff}
+.current-main{padding:16px 16px;border-right:1px solid var(--line)}
+.current-label{font-size:12px;font-weight:800;color:#655b8b}
+.big-weight{display:flex;align-items:baseline;gap:6px;margin-top:2px;color:#2a087f}.big-weight strong{font-size:56px;line-height:1;font-weight:900;letter-spacing:-.05em}.big-weight span{font-size:24px;font-weight:900}
+.prev{margin-top:10px;font-size:15px}.prev b{font-size:20px;margin-left:6px}.good{color:var(--green)!important}.bad{color:var(--red)!important}.neutral{color:#77718b!important}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.quick{border:1px solid #e4e0f2;background:#faf9ff;border-radius:13px;padding:9px}.quick span{font-size:10px;font-weight:800;color:#75699c;display:block}.quick b{font-size:17px;display:block;margin-top:3px}
+.goal-stack{padding:13px 13px}.goal-stack .title{font-size:12px;font-weight:800}.goal-stack .remain{font-size:27px;font-weight:900;margin:2px 0 8px}.goal-chip{display:inline-block;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900}.goal-chip.g1{background:#ffedf4;color:#e83470}.goal-chip.g2{background:#eefcf5;color:#0a9d61}.goal-line{margin-top:7px;padding-bottom:8px;border-bottom:1px solid #ece9f5}.goal-line:last-child{border:0;padding-bottom:0}.goal-line b{display:block;font-size:18px;margin-top:3px}
+.recent-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;padding:9px}.recent{border:1px solid #dfe0f1;border-radius:12px;overflow:hidden;text-align:center}.recent .d{padding:6px 2px;background:#f4f4ff;font-size:10px;line-height:1.25}.recent .w{padding:8px 2px;font-size:12px;font-weight:900}.recent.sat .d{background:#eaf5ff;color:#1b6dde}.recent.sun .d{background:#fff0f5;color:#e62f63}
+.progress-row{padding:10px 12px;border-top:1px solid #f0eef7}.progress-row:first-of-type{border-top:0}.phase2{background:linear-gradient(90deg,#effcf6,#fff)}.progress-title{display:flex;justify-content:space-between;gap:8px;align-items:center}.progress-title strong{font-size:16px}.progress-title span{font-size:12px;font-weight:900}.progress-barline{display:grid;grid-template-columns:1fr 56px;gap:8px;align-items:center;margin-top:8px}.track{height:16px;background:#e7e8ef;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7549e7,#a077ff)}.fill.green{background:linear-gradient(90deg,#19c980,#41df9d)}.pct{font-size:18px;font-weight:900;text-align:right}.caption{font-size:10px;margin-top:6px;color:#4a426a;line-height:1.35}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{min-height:104px;border-radius:18px;padding:11px;border:1px solid rgba(50,40,90,.05)}.stat span{display:block;font-size:11px;font-weight:900}.stat b{display:block;font-size:23px;margin-top:7px}.stat small{display:block;font-size:10px;margin-top:6px}.stat.pink{background:#fff0f5}.stat.mint{background:#ebfff5}.stat.peach{background:#fff1e6}.stat.blue{background:#eef3ff}
 .section-title{font-size:19px;font-weight:900;margin:3px 2px 12px}
 .note{font-size:12px;color:var(--muted);line-height:1.6}
 .action{border:0;border-radius:16px;padding:13px 18px;font-weight:900}.primary{background:linear-gradient(180deg,#5d92ff,#2f6fe8);color:#fff;box-shadow:0 7px 16px rgba(47,111,232,.25)}.secondary{background:#f1eeff;color:#5635af}.danger{background:#fff0f2;color:#cc334b;border:1px solid #ffcfd7}
-.record-card{padding:16px}.segment{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f3f2fa;border-radius:16px;padding:5px}.segment button{border:0;border-radius:12px;padding:12px;font-weight:900;background:transparent;color:#6e6880}.segment button.active{background:#fff;color:#2e62d8;box-shadow:0 2px 8px rgba(45,49,100,.12)}.segment button.night.active{color:#5643bd}
-.date-row{display:flex;align-items:center;gap:8px;margin-top:14px}.date-row input{min-width:0;flex:1;border:1px solid #ddd9ed;border-radius:12px;padding:11px 12px;font-size:16px;color:var(--ink);background:#fff}.now-time{font-size:12px;color:var(--muted);font-weight:700}
-.entry-fields{display:grid;gap:10px;margin-top:15px}.entry-field{border:2px solid transparent;background:#f6f6fb;border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between}.entry-field.active{border-color:#f1c942;background:#fff7ca}.entry-field span{font-size:13px;font-weight:900}.entry-value{font-variant-numeric:tabular-nums;font-size:26px;font-weight:900}.entry-value small{font-size:13px}.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:16px}.keypad button{border:1px solid #e2e0ee;background:#fff;border-radius:13px;height:54px;font-size:23px;font-weight:900;box-shadow:0 2px 5px rgba(30,25,70,.05)}.record-actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.record-actions .action{width:100%}.edit-delete{display:none}.edit-delete.show{display:block}
+.record-card{padding:14px}.segment{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f3f2fa;border-radius:16px;padding:5px}.segment button{border:0;border-radius:12px;padding:11px;font-weight:900;background:transparent;color:#6e6880}.segment button.active{background:#fff;color:#2e62d8;box-shadow:0 2px 8px rgba(45,49,100,.12)}.segment button.night.active{color:#5643bd}
+.date-row{display:flex;align-items:center;gap:8px;margin-top:12px}.date-row input{min-width:0;flex:1;border:1px solid #ddd9ed;border-radius:12px;padding:10px 12px;font-size:16px;color:var(--ink);background:#fff}.now-time{font-size:12px;color:var(--muted);font-weight:700}
+.entry-fields{display:grid;gap:10px;margin-top:14px}.entry-field{border:2px solid transparent;background:#f6f6fb;border-radius:16px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}.entry-field.active{border-color:#f1c942;background:#fff7ca}.entry-field span{font-size:13px;font-weight:900}.entry-main{display:flex;align-items:center;gap:10px}.entry-value{font-variant-numeric:tabular-nums;font-size:26px;font-weight:900;white-space:nowrap}.entry-value small{font-size:13px}.entry-back{border:1px solid #dfd8a7;background:#fff9dd;color:#7c6100;border-radius:10px;min-width:40px;height:40px;font-size:18px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}.keypad button{border:1px solid #e2e0ee;background:#fff;border-radius:13px;height:54px;font-size:23px;font-weight:900;box-shadow:0 2px 5px rgba(30,25,70,.05)}.record-actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.record-actions .action{width:100%}.edit-delete{display:none}.edit-delete.show{display:block}
 .success-box{display:none;margin-top:12px;padding:12px;border-radius:14px;background:#ecfff4;color:#08774a;font-size:13px;font-weight:800}.success-box.show{display:block}
-.history-tools{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:10px}.history-tools button{border:1px solid #d9d3f4;background:#fff;color:#5435b0;border-radius:999px;padding:8px 11px;font-weight:800}.history-list{display:grid;gap:9px}.history-row{background:#fff;border:1px solid var(--line);border-radius:17px;padding:12px;box-shadow:0 3px 12px rgba(55,42,120,.04)}.history-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.history-date{font-weight:900}.planned{font-size:11px;color:#6c48d8;font-weight:800}.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.slot-card{border:1px solid #e6e3f1;border-radius:13px;padding:9px;background:#fcfcff}.slot-card button{width:100%;border:0;background:transparent;text-align:left;color:inherit;padding:0}.slot-card .slot-title{font-size:10px;font-weight:900;color:#77718b}.slot-card b{display:block;font-size:18px;margin-top:4px}.slot-card small{font-size:11px;color:#bf2f6c}.slot-card.empty{color:#aaa6b5}
+.history-tools{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:8px}.history-tools button{border:1px solid #d9d3f4;background:#fff;color:#5435b0;border-radius:999px;padding:7px 10px;font-weight:800;font-size:12px}.history-table{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 3px 12px rgba(55,42,120,.04)}.history-head,.history-tr{display:grid;grid-template-columns:1.15fr .8fr 1fr 1fr;gap:0;align-items:stretch}.history-head{background:#f7f6ff;border-bottom:1px solid var(--line)}.history-head div{padding:9px 6px;font-size:11px;font-weight:900;text-align:center;color:#5c5684}.history-tr{border-bottom:1px solid #efedf7}.history-tr:last-child{border-bottom:0}.history-cell{padding:8px 6px;font-size:12px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25}.history-cell.date{font-weight:800}.history-cell.plan{color:#6c48d8;font-weight:800}.history-slot{border:0;background:transparent;color:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;font:inherit;line-height:1.2;width:100%}.history-slot b{font-size:15px}.history-slot small{font-size:10px;color:#6e6880;margin-top:2px}.history-slot.empty{color:#aaa6b5}.history-slot.empty small{color:#aaa6b5}
 .graph-card{padding:12px}.tabs{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid #d7d3eb;border-radius:13px;overflow:hidden}.tabs button{border:0;border-right:1px solid #d7d3eb;background:#fff;color:#30236e;padding:10px 2px;font-size:11px;font-weight:900}.tabs button:last-child{border:0}.tabs button.active{background:linear-gradient(90deg,#7650e3,#8a61e9);color:#fff}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;margin:12px 2px}.legend i{display:inline-block;width:18px;border-top:3px solid #6947df;margin-right:4px}.legend i.plan{border-color:#ff5791;border-top-style:dashed}.chart{width:100%;height:auto;display:block}
 .change-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.change{background:#f7f6ff;border-radius:13px;padding:10px;text-align:center}.change span{font-size:10px;color:#77718b}.change b{display:block;margin-top:4px;font-size:17px}
 .settings-card{padding:15px}.form-group{margin-bottom:16px}.form-group label{display:block;font-size:12px;font-weight:900;margin-bottom:7px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.input{width:100%;border:1px solid #ddd9ed;background:#fff;border-radius:12px;padding:11px 12px;font-size:16px;color:var(--ink)}.setting-actions{display:grid;gap:9px}.auth-note{background:#fff9df;border:1px solid #f4df8b;border-radius:13px;padding:11px;font-size:11px;line-height:1.5;color:#705f22}
@@ -133,8 +133,20 @@ button{touch-action:manipulation}
         <p class="note" id="autoSlotNote">時刻から朝／夜を自動選択します。タップでいつでも変更できます。</p>
 
         <div class="entry-fields">
-          <button type="button" class="entry-field active" id="weightField"><span>体重</span><div class="entry-value"><b id="weightValue">0.0</b> <small>kg</small></div></button>
-          <button type="button" class="entry-field" id="bodyFatField"><span>体脂肪率</span><div class="entry-value"><b id="bodyFatValue">0.0</b> <small>%</small></div></button>
+          <div class="entry-field active" id="weightField" role="button" tabindex="0">
+            <span>体重</span>
+            <div class="entry-main">
+              <div class="entry-value"><b id="weightValue">0.0</b> <small>kg</small></div>
+              <button type="button" class="entry-back" data-backspace-field="weight" aria-label="体重を1文字削除">⌫</button>
+            </div>
+          </div>
+          <div class="entry-field" id="bodyFatField" role="button" tabindex="0">
+            <span>体脂肪率</span>
+            <div class="entry-main">
+              <div class="entry-value"><b id="bodyFatValue">0.0</b> <small>%</small></div>
+              <button type="button" class="entry-back" data-backspace-field="bodyFat" aria-label="体脂肪率を1文字削除">⌫</button>
+            </div>
+          </div>
         </div>
 
         <div class="keypad" id="keypad">
@@ -157,8 +169,8 @@ button{touch-action:manipulation}
         <h2 class="section-title" style="margin:0">全記録</h2>
         <button type="button" id="historySort">新しい順</button>
       </div>
-      <p class="note">日付・予定体重・朝／夜の体重と体脂肪率。朝／夜の欄をタップすると修正できます。</p>
-      <div id="historyList" class="history-list"></div>
+      <p class="note">上が古い日付です。朝／夜の数値をタップするとそのまま修正できます。</p>
+      <div id="historyList"></div>
     </section>
 
     <section class="page" data-page="graph">
@@ -239,7 +251,7 @@ button{touch-action:manipulation}
 (() => {
   'use strict';
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxoMuA6HS8QmWP4GtXbBt3RiQjuwxhW1rLgyrYNNnJ9q0IJoGio9xy33-FCiv-t9O-4/exec';
-  const CACHE_KEY = 'diet-dashboard-data-v9';
+  const CACHE_KEY = 'diet-dashboard-data-v11';
   const AUTH_KEY = 'diet-dashboard-auth-v1';
   const weekday = ['日','月','火','水','木','金','土'];
   const titles = {
@@ -253,7 +265,7 @@ button{touch-action:manipulation}
 
   let data = null;
   let graphRange = '3m';
-  let historyNewest = true;
+  let historyNewest = false;
   let page = 'home';
   let record = { date:'', slot:'朝', weight:'', bodyFat:'', active:'weight', editing:false, manualSlot:false };
   let authResolver = null;
@@ -380,13 +392,11 @@ button{touch-action:manipulation}
     if(!data) return;
     const rows=[...(data.history||[])].sort((a,b)=>historyNewest?b.date.localeCompare(a.date):a.date.localeCompare(b.date));
     $('historySort').textContent=historyNewest?'新しい順':'古い順';
-    $('historyList').innerHTML=rows.map(r=>{
-      const slot=(name,w,bf)=>{
-        const has=hasValue(w);
-        return `<div class="slot-card ${has?'':'empty'}"><button type="button" data-edit-date="${r.date}" data-edit-slot="${name}"><span class="slot-title">${name} ${has?'✎':'＋'}</span><b>${has?Number(w).toFixed(1)+' kg':'—'}</b><small>${Number.isFinite(Number(bf))?Number(bf).toFixed(1)+' %':'—'}</small></button></div>`;
-      };
-      return `<article class="history-row"><div class="history-top"><div class="history-date">${fmtDate(r.date)}</div><div class="planned">予定 ${Number(r.plannedWeight).toFixed(2)} kg</div></div><div class="slots">${slot('朝',r.amWeight,r.amBodyFat)}${slot('夜',r.pmWeight,r.pmBodyFat)}</div></article>`;
-    }).join('');
+    const slot=(date,name,w,bf)=>{
+      const has=hasValue(w);
+      return `<button type="button" class="history-slot ${has?'':'empty'}" data-edit-date="${date}" data-edit-slot="${name}"><b>${has?Number(w).toFixed(1):'—'}</b><small>${hasValue(bf)?Number(bf).toFixed(1)+' %':'—'}</small></button>`;
+    };
+    $('historyList').innerHTML=`<div class="history-table"><div class="history-head"><div>日付</div><div>予定</div><div>朝<br>体重 / 体脂肪</div><div>夜<br>体重 / 体脂肪</div></div>${rows.map(r=>`<div class="history-tr"><div class="history-cell date">${fmtShort(r.date)}</div><div class="history-cell plan">${hasValue(r.plannedWeight)?Number(r.plannedWeight).toFixed(1)+'kg':'—'}</div><div class="history-cell">${slot(r.date,'朝',r.amWeight,r.amBodyFat)}</div><div class="history-cell">${slot(r.date,'夜',r.pmWeight,r.pmBodyFat)}</div></div>`).join('')}</div>`;
     document.querySelectorAll('[data-edit-date]').forEach(btn=>btn.addEventListener('click',()=>startEdit(btn.dataset.editDate,btn.dataset.editSlot)));
   }
 
@@ -451,9 +461,16 @@ button{touch-action:manipulation}
     }
     renderRecord();
   }
+  function backspaceActive(field){
+    const target=field||record.active;
+    const v=String(record[target]||'');
+    record[target]=v.slice(0,-1);
+    renderRecord();
+  }
   function appendKey(k){
     let v=record[record.active];
     if(k==='C') v='';
+    else if(k==='⌫') { record[record.active]=String(v||'').slice(0,-1); renderRecord(); return; }
     else if(k==='.') { if(!v.includes('.')) v=(v||'0')+'.'; }
     else {
       if(v==='0') v='';
@@ -582,7 +599,8 @@ button{touch-action:manipulation}
     record.bodyFat='';
     setSlot(record.slot);
   });
-  $('weightField').addEventListener('click',()=>{record.active='weight';renderRecord()}); $('bodyFatField').addEventListener('click',()=>{record.active='bodyFat';renderRecord()});
+  $('weightField').addEventListener('click',e=>{if(e.target.closest('[data-backspace-field]')) return; record.active='weight';renderRecord()}); $('bodyFatField').addEventListener('click',e=>{if(e.target.closest('[data-backspace-field]')) return; record.active='bodyFat';renderRecord()});
+  document.querySelectorAll('[data-backspace-field]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation(); record.active=btn.dataset.backspaceField; backspaceActive(btn.dataset.backspaceField);}));
   $('keypad').addEventListener('click',e=>{const b=e.target.closest('[data-key]');if(b)appendKey(b.dataset.key)});
   $('saveRecord').addEventListener('click',saveRecord); $('deleteRecord').addEventListener('click',deleteRecord);
   $('saveSettings').addEventListener('click',saveSettings); $('exportCsv').addEventListener('click',exportCsv);
