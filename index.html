@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v18-mobile-recent-plan2-compact-achievement">
+  <meta name="diet-dashboard-build" content="v19-plan2-gap2-green-compact-header">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -262,6 +262,69 @@ html,body{background:#f2f3ff}
   .goal-head-note{display:none}
 }
 
+
+/* ===== v19: authoritative mobile polish ===== */
+/* Keep the header plain lavender, but visually connect it to the dashboard below. */
+.topbar{
+  background:#b9a6ee!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:calc(14px + env(safe-area-inset-top)) 14px 31px!important;
+}
+.topbar .brand{
+  max-width:732px;
+  margin:0 auto;
+  padding:0 2px;
+  gap:10px!important;
+}
+.topbar .brand-bars{
+  width:42px!important;height:42px!important;flex:0 0 42px!important;
+  padding:7px!important;border-radius:12px!important;
+  background:rgba(255,255,255,.28)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.24)!important;
+}
+.topbar .brand-bars i{width:6px!important}
+.topbar .brand-bars i:nth-child(1){height:14px!important}
+.topbar .brand-bars i:nth-child(2){height:21px!important}
+.topbar .brand-bars i:nth-child(3){height:28px!important}
+.topbar .brand-copy{gap:3px!important}
+.topbar h1{font-size:clamp(23px,6.6vw,31px)!important;line-height:1.05!important}
+.topbar p{font-size:clamp(10px,2.9vw,13px)!important;color:#4a397c!important}
+main{
+  background:linear-gradient(180deg,#d9d0f6 0,#ececff 34px,#f4f5ff 96px,#f7f8ff 180px);
+}
+.page.home-dashboard{
+  margin-top:-17px!important;
+  padding-top:0!important;
+}
+.home-dashboard .card:first-child{
+  box-shadow:0 7px 20px rgba(79,69,134,.07)!important;
+}
+.topbar.compact{
+  padding:calc(10px + env(safe-area-inset-top)) 14px 12px!important;
+}
+
+/* The old warning block must never occupy space, even if stale markup is present. */
+.achievement-note{display:none!important;margin:0!important;padding:0!important;height:0!important;min-height:0!important;overflow:hidden!important}
+.achievement-panel{padding-bottom:9px!important}
+.achievement-subgrid{margin-top:7px!important}
+
+/* Make the "先行" state unmistakably green. */
+#achievementStatus.good{
+  color:#078b55!important;
+  background:#e5faef!important;
+  border:1px solid #bfead5!important;
+}
+
+/* Planned weight and its gap are display-only rounded to 2 decimals. */
+#homePlan,#homeGap{font-variant-numeric:tabular-nums}
+
+@media(max-width:700px){
+  .topbar{padding-left:11px!important;padding-right:11px!important}
+  .topbar .brand{padding:0 3px}
+  .page.home-dashboard{margin-top:-16px!important}
+}
+
 </style>
 </head>
 <body>
@@ -286,7 +349,7 @@ html,body{background:#f2f3ff}
             <div class="home-prev" id="homePrev">前回比 —</div>
             <div class="home-mini-grid">
               <div class="home-mini"><div class="mini-title"><span class="mini-icon flag-icon" aria-hidden="true">⚑</span><span>予定体重</span></div><b id="homePlan">--.--kg</b></div>
-              <div class="home-mini"><div class="mini-title"><span class="mini-icon gap-icon" aria-hidden="true">♟</span><span>予定との差</span></div><b id="homeGap">--.---kg</b></div>
+              <div class="home-mini"><div class="mini-title"><span class="mini-icon gap-icon" aria-hidden="true">♟</span><span>予定との差</span></div><b id="homeGap">--.--kg</b></div>
             </div>
           </div>
           <div class="achievement-panel">
@@ -645,7 +708,7 @@ html,body{background:#f2f3ff}
     const plannedToday=getTodayPlanWeight();
     $('homePlan').textContent=hasValue(plannedToday)?`${Number(plannedToday).toFixed(2)}kg`:'—';
     const gap=hasValue(plannedToday)&&hasValue(c.weight)?Number(c.weight)-Number(plannedToday):null;
-    $('homeGap').textContent=hasValue(gap)?`${gap>0?'+':''}${gap.toFixed(3)}kg`:'—';
+    $('homeGap').textContent=hasValue(gap)?`${gap>0?'+':''}${gap.toFixed(2)}kg`:'—';
     $('homeGap').className=gap===null?'neutral':gap<0?'good':gap>0?'bad':'neutral';
 
     $('g1Top').textContent=hasValue(g.goal1Weight)?`${Number(g.goal1Weight).toFixed(1)}kg`:'—';
