@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v14-flat-lavender-exponential-3dp">
+  <meta name="diet-dashboard-build" content="v16-goal-trigger-unified-header">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -49,7 +49,7 @@ button{touch-action:manipulation}
 .note{font-size:12px;color:var(--muted);line-height:1.6}
 .action{border:0;border-radius:16px;padding:13px 18px;font-weight:900}.primary{background:linear-gradient(180deg,#5d92ff,#2f6fe8);color:#fff;box-shadow:0 7px 16px rgba(47,111,232,.25)}.secondary{background:#f1eeff;color:#5635af}.danger{background:#fff0f2;color:#cc334b;border:1px solid #ffcfd7}
 .record-card{padding:14px}.segment{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f3f2fa;border-radius:16px;padding:5px}.segment button{border:0;border-radius:12px;padding:11px;font-weight:900;background:transparent;color:#6e6880}.segment button.active{background:#fff;color:#2e62d8;box-shadow:0 2px 8px rgba(45,49,100,.12)}.segment button.night.active{color:#5643bd}
-.date-row{display:flex;align-items:center;gap:8px;margin-top:12px}.date-row input{min-width:0;flex:1;border:1px solid #ddd9ed;border-radius:12px;padding:10px 12px;font-size:16px;color:var(--ink);background:#fff}.now-time{font-size:12px;color:var(--muted);font-weight:700}
+.date-row{display:flex;align-items:center;gap:8px;margin-top:12px}.date-row input{min-width:0;flex:1;border:1px solid #ddd9ed;border-radius:12px;padding:10px 12px;font-size:16px;color:var(--ink);background:#fff}
 .entry-fields{display:grid;gap:10px;margin-top:14px}.entry-field{border:2px solid transparent;background:#f6f6fb;border-radius:16px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}.entry-field.active{border-color:#f1c942;background:#fff7ca}.entry-field span{font-size:13px;font-weight:900}.entry-main{display:flex;align-items:center;gap:10px}.entry-value{font-variant-numeric:tabular-nums;font-size:26px;font-weight:900;white-space:nowrap}.entry-value small{font-size:13px}.entry-back{border:1px solid #dfd8a7;background:#fff9dd;color:#7c6100;border-radius:10px;min-width:40px;height:40px;font-size:18px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}.keypad button{border:1px solid #e2e0ee;background:#fff;border-radius:13px;height:54px;font-size:23px;font-weight:900;box-shadow:0 2px 5px rgba(30,25,70,.05)}.record-actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.record-actions .action{width:100%}.edit-delete{display:none}.edit-delete.show{display:block}
 .success-box{display:none;margin-top:12px;padding:12px;border-radius:14px;background:#ecfff4;color:#08774a;font-size:13px;font-weight:800}.success-box.show{display:block}
 .history-tools{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:8px}.history-tools button{border:1px solid #d9d3f4;background:#fff;color:#5435b0;border-radius:999px;padding:7px 10px;font-weight:800;font-size:12px}.history-table{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 3px 12px rgba(55,42,120,.04)}.history-head,.history-tr{display:grid;grid-template-columns:1.15fr .8fr 1fr 1fr;gap:0;align-items:stretch}.history-head{background:#f7f6ff;border-bottom:1px solid var(--line)}.history-head div{padding:9px 6px;font-size:11px;font-weight:900;text-align:center;color:#5c5684}.history-tr{border-bottom:1px solid #efedf7}.history-tr:last-child{border-bottom:0}.history-cell{padding:8px 6px;font-size:12px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25}.history-cell.date{font-weight:800}.history-cell.plan{color:#6c48d8;font-weight:800}.history-slot{border:0;background:transparent;color:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;font:inherit;line-height:1.2;width:100%}.history-slot b{font-size:15px}.history-slot small{font-size:10px;color:#6e6880;margin-top:2px}.history-slot.empty{color:#aaa6b5}.history-slot.empty small{color:#aaa6b5}
@@ -197,9 +197,39 @@ html,body{background:#f2f3ff}
 .home-mini b{font-size:clamp(11px,3.15vw,17px);white-space:nowrap;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
 .home-mini .mini-icon{flex-shrink:0}
 .history-cell.plan{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ===== v16: unified header + goal-phase emphasis ===== */
+.topbar{
+  background:#b9a6ee;
+  color:#281763;
+  padding:calc(15px + env(safe-area-inset-top)) 16px 28px;
+  border-radius:0 0 22px 22px;
+  box-shadow:0 5px 16px rgba(74,55,139,.08);
+}
+.topbar.compact{padding:calc(11px + env(safe-area-inset-top)) 16px 13px;border-radius:0 0 18px 18px}
+.topbar .brand{display:flex;align-items:center;gap:11px}
+.topbar .brand-bars{
+  width:46px;height:46px;flex:0 0 46px;padding:8px;
+  display:flex;align-items:flex-end;justify-content:center;gap:3px;
+  border-radius:14px;background:rgba(255,255,255,.38);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.34);
+}
+.topbar .brand-bars i{width:6px;border-radius:3px;background:#5636be}
+.topbar .brand-bars i:nth-child(1){height:15px}.topbar .brand-bars i:nth-child(2){height:22px}.topbar .brand-bars i:nth-child(3){height:29px}
+.topbar .brand-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.topbar h1{font-size:clamp(24px,7vw,33px);line-height:1.05;letter-spacing:0;margin:0}
+.topbar p{position:static;margin:0;font-size:clamp(11px,3.15vw,14px);line-height:1.25;font-weight:650;color:#4a397c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.page.home-dashboard{margin-top:-12px}
+.goal-box{transition:border-color .18s ease,box-shadow .18s ease,opacity .18s ease}
+.goal-box.current-goal{border-color:#c7baf3;box-shadow:0 0 0 2px rgba(105,72,219,.10)}
+.goal-box.g2.current-goal{background:linear-gradient(145deg,#effcf6,#fff);border-color:#bfead5;box-shadow:0 0 0 2px rgba(11,182,110,.09)}
+.goal-box.completed-goal{opacity:.78}
+.goal2-status-pill{background:#f1eefb!important;color:#75699a!important}
+.goal-box.g2.current-goal .goal2-status-pill{background:#e5faef!important;color:#078b55!important}
+.goal-box.g1.completed-goal .remain-pill{background:#eafbf2;color:#078b55}
 /* retain normal tab and tools layout on the other four pages */
 @media(min-width:640px){
-  .page.home-dashboard{padding:0 15px 18px;margin-top:-24px}.home-current{padding:15px 18px}.achievement-panel{padding:15px 18px}
+  .page.home-dashboard{padding:0 15px 18px;margin-top:-12px}.home-current{padding:15px 18px}.achievement-panel{padding:15px 18px}
   .home-weight strong{font-size:70px}.home-weight span{font-size:29px}
   .home-mini b{font-size:23px}.achievement-value{font-size:90px}
   .home-recent .recent .d{font-size:14px}.home-recent .recent .w{font-size:23px}
@@ -220,8 +250,13 @@ html,body{background:#f2f3ff}
 <body>
 <div class="app" id="app">
   <header class="topbar" id="topbar">
-    <div class="brand"><div class="brand-bars" aria-hidden="true"><i></i><i></i><i></i></div><div><h1 id="pageTitle">ダイエット進捗</h1></div></div>
-    <p id="pageSubtitle">読み込み中…</p>
+    <div class="brand">
+      <div class="brand-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="brand-copy">
+        <h1 id="pageTitle">ダイエット進捗</h1>
+        <p id="pageSubtitle">読み込み中…</p>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -258,13 +293,13 @@ html,body{background:#f2f3ff}
       <section class="card goal-settings-card">
         <div class="card-head"><h2><span class="section-glyph" aria-hidden="true">◎</span>目標設定<span class="goal-head-note">2つの目標で、理想の自分を目指しましょう</span></h2><button class="more" data-goto="settings" type="button">目標を編集 →</button></div>
         <div class="goal-settings-wrap">
-          <article class="goal-box g1">
+          <article class="goal-box g1" id="goal1Box">
             <div class="goal-label"><span class="goal-dot"></span><span>第1目標</span><span class="remain-pill" id="goal1RemainPill">達成まで —kg</span></div>
             <div class="goal-details"><strong id="g1Top">80.0kg</strong><span class="date" id="g1DateTop">—</span></div>
           </article>
           <div class="goal-connector" aria-hidden="true"><span></span></div>
-          <article class="goal-box g2">
-            <div class="goal-label"><span class="goal-dot"></span><span>第2目標</span></div>
+          <article class="goal-box g2" id="goal2Box">
+            <div class="goal-label"><span class="goal-dot"></span><span>第2目標</span><span class="remain-pill goal2-status-pill" id="goal2StatusPill">次の目標</span></div>
             <div class="goal-details"><strong id="g2Top">60.0kg</strong><span class="date" id="g2DateTop">—</span></div>
           </article>
         </div>
@@ -285,8 +320,7 @@ html,body{background:#f2f3ff}
           <button type="button" id="slotMorning">☀　朝</button>
           <button type="button" class="night" id="slotNight">☾　夜</button>
         </div>
-        <div class="date-row"><input type="date" id="recordDate"><span class="now-time" id="recordClock">--:--</span></div>
-        <p class="note" id="autoSlotNote">時刻から朝／夜を自動選択します。タップでいつでも変更できます。</p>
+        <div class="date-row"><input type="date" id="recordDate"></div>
 
         <div class="entry-fields">
           <div class="entry-field active" id="weightField" role="button" tabindex="0">
@@ -325,7 +359,7 @@ html,body{background:#f2f3ff}
         <h2 class="section-title" style="margin:0">全記録</h2>
         <button type="button" id="historySort">新しい順</button>
       </div>
-      <p class="note">上が古い日付です。朝／夜の数値をタップするとそのまま修正できます。</p>
+      <p class="note">履歴は閲覧専用です。修正する場合は「記録」で同じ日付・朝／夜を選び、再度保存してください。</p>
       <div id="historyList"></div>
     </section>
 
@@ -426,6 +460,8 @@ html,body{background:#f2f3ff}
   let page = 'home';
   let record = { date:'', slot:'朝', weight:'', bodyFat:'', active:'weight', editing:false, manualSlot:false };
   let authResolver = null;
+  let goal1CacheSource = null;
+  let goal1CacheDate = null;
 
   const allowNetwork = location.hostname.endsWith('github.io') || location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
@@ -511,9 +547,36 @@ html,body{background:#f2f3ff}
     renderHome(); renderHistory(); renderSettings(); drawHomeGraph(); if(page==='graph') drawGraph();
   }
 
-  // Use the same two-stage exponential curve as Apps Script, but calculate
-  // locally BEFORE rounding. The API's history.plannedWeight is rounded to 2dp.
-  // Using it would invent a trailing zero rather than a genuine third digit.
+  // Planned weights are calculated locally BEFORE rounding so the third decimal
+  // is genuine. Phase 2 becomes the active goal when the recorded daily weight
+  // (lighter of morning/evening) first reaches Goal 1. If Goal 1 is reached
+  // early, the phase-2 curve is brought forward to that achievement date while
+  // the final Goal 2 deadline remains fixed. A late achievement never postpones
+  // the final deadline: the original Goal 1 date remains the scheduled phase-2
+  // start for the target curve.
+  function pickedHistoryWeight(row){
+    if(!row) return null;
+    const am=hasValue(row.amWeight)?Number(row.amWeight):null;
+    const pm=hasValue(row.pmWeight)?Number(row.pmWeight):null;
+    if(am===null) return pm;
+    if(pm===null) return am;
+    return Math.min(am,pm);
+  }
+  function goal1AchievementDate(){
+    if(!data || !data.goals) return null;
+    if(data===goal1CacheSource) return goal1CacheDate;
+    const threshold=Number(data.goals.goal1Weight);
+    if(!Number.isFinite(threshold)) return null;
+    let hit=null;
+    for(const row of (data.history||[])){
+      const w=pickedHistoryWeight(row);
+      if(w!==null && w<=threshold && /^\d{4}-\d{2}-\d{2}$/.test(row.date||'') && (!hit || row.date<hit)) hit=row.date;
+    }
+    if(!hit && data.current && hasValue(data.current.weight) && Number(data.current.weight)<=threshold && /^\d{4}-\d{2}-\d{2}$/.test(data.current.date||'')) hit=data.current.date;
+    goal1CacheSource=data;
+    goal1CacheDate=hit;
+    return hit;
+  }
   function plannedWeightAtDate(iso){
     if(!data || !data.goals || !/^\d{4}-\d{2}-\d{2}$/.test(iso||'')) return null;
     const g=data.goals;
@@ -521,7 +584,6 @@ html,body{background:#f2f3ff}
     if(required.some(v=>!/^\d{4}-\d{2}-\d{2}$/.test(v||''))) return null;
     const numbers=[g.startWeight,g.goal1Weight,g.goal2Weight].map(Number);
     if(numbers.some(v=>!Number.isFinite(v)||v<=0)) return null;
-    // Date-only values are compared as UTC calendar days (not local timestamps).
     const day=v=>{
       const [y,m,d]=v.split('-').map(Number);
       return Date.UTC(y,m-1,d)/86400000;
@@ -532,6 +594,17 @@ html,body{background:#f2f3ff}
       return from*Math.pow(to/from,elapsed/total);
     };
     if(iso<=g.startDate) return numbers[0];
+
+    const achieved=goal1AchievementDate();
+    const earlyPhase2Start=achieved && achieved<g.goal1Date ? achieved : null;
+    if(earlyPhase2Start){
+      // Keep the original phase-1 benchmark for dates before the actual early
+      // achievement; from the achievement date onward, immediately target Goal 2.
+      if(iso<earlyPhase2Start) return phase(iso,g.startDate,g.goal1Date,numbers[0],numbers[1]);
+      if(iso<=g.goal2Date) return phase(iso,earlyPhase2Start,g.goal2Date,numbers[1],numbers[2]);
+      return numbers[2];
+    }
+
     if(iso<=g.goal1Date) return phase(iso,g.startDate,g.goal1Date,numbers[0],numbers[1]);
     if(iso<=g.goal2Date) return phase(iso,g.goal1Date,g.goal2Date,numbers[1],numbers[2]);
     return numbers[2];
@@ -556,7 +629,13 @@ html,body{background:#f2f3ff}
     $('g1Top').textContent=hasValue(g.goal1Weight)?`${Number(g.goal1Weight).toFixed(1)}kg`:'—';
     $('g2Top').textContent=hasValue(g.goal2Weight)?`${Number(g.goal2Weight).toFixed(1)}kg`:'—';
     $('g1DateTop').textContent=fmtDate(g.goal1Date); $('g2DateTop').textContent=fmtDate(g.goal2Date);
-    $('goal1RemainPill').textContent=hasValue(g.goal1Remaining)?`達成まで ${Number(g.goal1Remaining).toFixed(2)}kg`:'達成まで —';
+    const g1AchievedDate=goal1AchievementDate();
+    const phase2Active=!!g1AchievedDate;
+    $('goal1RemainPill').textContent=phase2Active?'✓ 達成':(hasValue(g.goal1Remaining)?`達成まで ${Number(g.goal1Remaining).toFixed(2)}kg`:'達成まで —');
+    $('goal2StatusPill').textContent=phase2Active?'現在の目標':'次の目標';
+    $('goal1Box').classList.toggle('current-goal',!phase2Active);
+    $('goal1Box').classList.toggle('completed-goal',phase2Active);
+    $('goal2Box').classList.toggle('current-goal',phase2Active);
 
     $('recentGrid').innerHTML=(data.recent7||[]).map(r=>{
       const [y,m,d]=r.date.split('-').map(Number), day=new Date(y,m-1,d).getDay();
@@ -592,10 +671,9 @@ html,body{background:#f2f3ff}
     $('historySort').textContent=historyNewest?'新しい順':'古い順';
     const slot=(date,name,w,bf)=>{
       const has=hasValue(w);
-      return `<button type="button" class="history-slot ${has?'':'empty'}" data-edit-date="${date}" data-edit-slot="${name}"><b>${has?Number(w).toFixed(1):'—'}</b><small>${hasValue(bf)?Number(bf).toFixed(1)+' %':'—'}</small></button>`;
+      return `<div class="history-slot ${has?'':'empty'}"><b>${has?Number(w).toFixed(1):'—'}</b><small>${hasValue(bf)?Number(bf).toFixed(1)+' %':'—'}</small></div>`;
     };
     $('historyList').innerHTML=`<div class="history-table"><div class="history-head"><div>日付</div><div>予定</div><div>朝<br>体重 / 体脂肪</div><div>夜<br>体重 / 体脂肪</div></div>${rows.map(r=>`<div class="history-tr"><div class="history-cell date">${fmtShort(r.date)}</div><div class="history-cell plan">${hasValue(plannedWeightAtDate(r.date))?plannedWeightAtDate(r.date).toFixed(3)+'kg':'—'}</div><div class="history-cell">${slot(r.date,'朝',r.amWeight,r.amBodyFat)}</div><div class="history-cell">${slot(r.date,'夜',r.pmWeight,r.pmBodyFat)}</div></div>`).join('')}</div>`;
-    document.querySelectorAll('[data-edit-date]').forEach(btn=>btn.addEventListener('click',()=>startEdit(btn.dataset.editDate,btn.dataset.editSlot)));
   }
 
   function renderSettings(){
@@ -618,26 +696,12 @@ html,body{background:#f2f3ff}
     renderRecord();
   }
   function findHistory(date){ return data && data.history ? data.history.find(r=>r.date===date) : null; }
-  function startEdit(date,slot){
-    const row=findHistory(date), morning=slot==='朝';
-    const sourceWeight = row ? (morning ? row.amWeight : row.pmWeight) : null;
-    const sourceBodyFat = row ? (morning ? row.amBodyFat : row.pmBodyFat) : null;
-    record={
-      date,slot,
-      weight: hasValue(sourceWeight) ? String(sourceWeight) : '',
-      bodyFat: hasValue(sourceBodyFat) ? String(sourceBodyFat) : '',
-      active:'weight',editing:hasValue(sourceWeight),manualSlot:true
-    };
-    navigate('record'); renderRecord();
-  }
   function renderRecord(){
     $('recordDate').value=record.date; $('recordHeading').textContent=record.editing?'体重記録を修正':'体重記録';
     $('slotMorning').classList.toggle('active',record.slot==='朝'); $('slotNight').classList.toggle('active',record.slot==='夜');
     $('weightField').classList.toggle('active',record.active==='weight'); $('bodyFatField').classList.toggle('active',record.active==='bodyFat');
     $('weightValue').textContent=record.weight||'0.0'; $('bodyFatValue').textContent=record.bodyFat||'0.0';
     $('deleteRecord').classList.toggle('show',record.editing);
-    const cutoff=(data&&data.settings&&data.settings.morningCutoff)||'12:00';
-    $('autoSlotNote').textContent=`${cutoff}より前は「朝」、${cutoff}以降は「夜」を自動選択。いつでも手動変更できます。`;
   }
   function setSlot(slot){
     record.slot=slot; record.manualSlot=true; record.editing=false;
@@ -875,8 +939,6 @@ html,body{background:#f2f3ff}
   $('graphTabs').addEventListener('click',e=>{const b=e.target.closest('[data-range]');if(!b)return;graphRange=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.classList.toggle('active',x===b));drawGraph()});
   $('homeGraphSelect').addEventListener('change',e=>{homeGraphRange=e.target.value;drawHomeGraph()});
 
-  setInterval(()=>{$('recordClock').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})},1000);
-  $('recordClock').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
 
   const initial=(location.hash||'#home').slice(1); if(titles[initial]) page=initial;
   const hadCache=loadCached();
