@@ -633,12 +633,10 @@ main{
     renderHome(); renderHistory(); renderSettings(); drawHomeGraph(); if(page==='graph') drawGraph();
   }
 
-  // Planned weights are calculated locally at full precision and rounded only for display. Phase 2 becomes the active goal when the recorded daily weight
-  // (lighter of morning/evening) first reaches Goal 1. If Goal 1 is reached
-  // early, the phase-2 curve is brought forward to that achievement date while
-  // the final Goal 2 deadline remains fixed. A late achievement never postpones
-  // the final deadline: the original Goal 1 date remains the scheduled phase-2
-  // start for the target curve.
+  // Planned weights are calculated locally at full precision and rounded only for display.
+  // The target curve is one quadratic curve through these three fixed milestones:
+  // start weight -> Goal 1 -> Goal 2. Reaching Goal 1 early changes the active
+  // goal shown in the UI, but it does not restart or reshape the planned curve.
   function pickedHistoryWeight(row){
     if(!row) return null;
     const am=hasValue(row.amWeight)?Number(row.amWeight):null;
@@ -667,32 +665,21 @@ main{
     const g=data.goals;
     const required=[g.startDate,g.goal1Date,g.goal2Date];
     if(required.some(v=>!/^\d{4}-\d{2}-\d{2}$/.test(v||''))) return null;
-    const numbers=[g.startWeight,g.goal1Weight,g.goal2Weight].map(Number);
-    if(numbers.some(v=>!Number.isFinite(v)||v<=0)) return null;
+    const [w0,w1,w2]=[g.startWeight,g.goal1Weight,g.goal2Weight].map(Number);
+    if([w0,w1,w2].some(v=>!Number.isFinite(v)||v<=0)) return null;
     const day=v=>{
       const [y,m,d]=v.split('-').map(Number);
       return Date.UTC(y,m-1,d)/86400000;
     };
-    const phase=(date,start,end,from,to)=>{
-      const total=Math.max(1,day(end)-day(start));
-      const elapsed=Math.max(0,Math.min(total,day(date)-day(start)));
-      return from*Math.pow(to/from,elapsed/total);
-    };
-    if(iso<=g.startDate) return numbers[0];
-
-    const achieved=goal1AchievementDate();
-    const earlyPhase2Start=achieved && achieved<g.goal1Date ? achieved : null;
-    if(earlyPhase2Start){
-      // Keep the original phase-1 benchmark for dates before the actual early
-      // achievement; from the achievement date onward, immediately target Goal 2.
-      if(iso<earlyPhase2Start) return phase(iso,g.startDate,g.goal1Date,numbers[0],numbers[1]);
-      if(iso<=g.goal2Date) return phase(iso,earlyPhase2Start,g.goal2Date,numbers[1],numbers[2]);
-      return numbers[2];
-    }
-
-    if(iso<=g.goal1Date) return phase(iso,g.startDate,g.goal1Date,numbers[0],numbers[1]);
-    if(iso<=g.goal2Date) return phase(iso,g.goal1Date,g.goal2Date,numbers[1],numbers[2]);
-    return numbers[2];
+    const x0=day(g.startDate), x1=day(g.goal1Date), x2=day(g.goal2Date), x=day(iso);
+    if(!(x0<x1 && x1<x2)) return null;
+    if(x<=x0) return w0;
+    if(x>=x2) return w2;
+    // Lagrange interpolation: exactly passes start, Goal 1, and Goal 2.
+    const l0=((x-x1)*(x-x2))/((x0-x1)*(x0-x2));
+    const l1=((x-x0)*(x-x2))/((x1-x0)*(x1-x2));
+    const l2=((x-x0)*(x-x1))/((x2-x0)*(x2-x1));
+    return w0*l0+w1*l1+w2*l2;
   }
   function getTodayPlanWeight(){
     return plannedWeightAtDate(localIso());
