@@ -357,8 +357,8 @@ main{
             <div class="achievement-value" id="achievementValue">—%</div>
             <div class="achievement-status" id="achievementStatus">—</div>
             <div class="achievement-subgrid">
-              <div class="achievement-sub"><span class="sub-icon mint" aria-hidden="true">↘</span><span class="sub-title">減量進捗率</span><b id="weightProgressPct">—%</b><small id="weightProgressDetail">—</small></div>
-              <div class="achievement-sub"><span class="sub-icon blue" aria-hidden="true">▣</span><span class="sub-title">期間進捗率</span><b id="timeProgressPct">—%</b><small id="timeProgressDetail">—</small></div>
+              <div class="achievement-sub"><span class="sub-icon mint" aria-hidden="true">↘</span><span class="sub-title">トータル減量</span><b id="achievementTotalLoss">—kg</b><small id="totalLossDetail">開始から現在まで</small></div>
+              <div class="achievement-sub"><span class="sub-icon blue" aria-hidden="true">◎</span><span class="sub-title">減量進捗率</span><b id="weightProgressPct">—%</b><small id="weightProgressDetail">—</small></div>
             </div>
           </div>
         </div>
@@ -719,14 +719,12 @@ main{
 
     const startW=Number(g.startWeight), currentW=Number(c.weight), plannedW=Number(plannedToday), goal1W=Number(g.goal1Weight);
     const actualLost=Math.max(0,startW-currentW);
+    $('achievementTotalLoss').textContent=(Number.isFinite(actualLost)?`${actualLost.toFixed(2)}kg`:'—kg');
+    $('totalLossDetail').textContent=(Number.isFinite(startW)&&Number.isFinite(currentW)?`${startW.toFixed(2)} → ${currentW.toFixed(2)} kg`:'開始から現在まで');
     const plannedLost=Math.max(0,startW-plannedW);
     const totalToGoal=Math.max(0,startW-goal1W);
     const achievement=plannedLost>0 ? (actualLost/plannedLost)*100 : 100;
     const weightProgress=totalToGoal>0 ? Math.max(0,Math.min(100,(actualLost/totalToGoal)*100)) : 0;
-    const today=localIso();
-    const totalDays=Math.max(1,Math.round((new Date(g.goal1Date+'T00:00:00')-new Date(g.startDate+'T00:00:00'))/86400000));
-    const elapsedDays=Math.max(0,Math.min(totalDays,Math.round((new Date(today+'T00:00:00')-new Date(g.startDate+'T00:00:00'))/86400000)));
-    const timeProgress=(elapsedDays/totalDays)*100;
     $('achievementValue').textContent=`${Math.round(achievement)}%`;
     const status=$('achievementStatus');
     if(achievement>=110){status.textContent='♛ 先行';status.className='achievement-status good'}
@@ -734,8 +732,6 @@ main{
     else {status.textContent='△ 遅れ';status.className='achievement-status bad'}
     $('weightProgressPct').textContent=`${weightProgress.toFixed(0)}%`;
     $('weightProgressDetail').textContent=`${actualLost.toFixed(2)} / ${totalToGoal.toFixed(2)} kg`;
-    $('timeProgressPct').textContent=`${timeProgress.toFixed(0)}%`;
-    $('timeProgressDetail').textContent=`${elapsedDays} / ${totalDays} 日`;
   }
 
   function renderHistory(){
