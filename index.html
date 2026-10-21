@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗" />
   <title>ダイエット進捗</title>
-  <meta name="diet-dashboard-build" content="v5-single-20261021" />
+  <meta name="diet-dashboard-build" content="v6-mobile-fix-20261021" />
   <style>
 :root{
   --ink:#171052;--purple:#6e43dc;--purple2:#8d69ee;--lav:#f2efff;--line:#e3e0f2;
@@ -153,7 +153,7 @@
     <footer class="footer"><span id="updatedAt">最終更新：—</span><button id="refreshButton" type="button">再読み込み</button></footer>
   </main>
   <script>
-window.DIET_DASHBOARD_CONFIG = { DATA_ENDPOINT: 'http://127.0.0.1:8765/api', DEMO_WHEN_UNCONFIGURED:false };
+window.DIET_DASHBOARD_CONFIG = { DATA_ENDPOINT: 'https://script.google.com/macros/s/AKfycbxoMuA6HS8QmWP4GtXbBt3RiQjuwxhW1rLgyrYNNnJ9q0IJoGio9xy33-FCiv-t9O-4/exec', DEMO_WHEN_UNCONFIGURED:false };
 
   </script>
   <script>
@@ -256,7 +256,7 @@ window.DIET_DASHBOARD_CONFIG = { DATA_ENDPOINT: 'http://127.0.0.1:8765/api', DEM
     svg.innerHTML=html;
   }
 
-  function loadJsonp(){return new Promise((resolve,reject)=>{const endpoint=CONFIG.DATA_ENDPOINT;if(!endpoint){reject(new Error('Apps Script URLが未設定です。'));return;}const cb=`dietDashboardCallback_${Date.now()}`,s=document.createElement('script');const timer=setTimeout(()=>cleanup(new Error('データ取得がタイムアウトしました。')),15000);function cleanup(err,data){clearTimeout(timer);delete window[cb];s.remove();err?reject(err):resolve(data);}window[cb]=data=>cleanup(null,data);s.onerror=()=>cleanup(new Error('Apps Scriptへの接続に失敗しました。'));s.src=`${endpoint}${endpoint.includes('?')?'&':'?'}callback=${encodeURIComponent(cb)}&_=${Date.now()}`;document.head.appendChild(s);});}
+  function loadJsonp(){return new Promise((resolve,reject)=>{const endpoint=CONFIG.DATA_ENDPOINT;if(!endpoint){reject(new Error('Apps Script URLが未設定です。'));return;}const cb=`dietDashboardCallback_${Date.now()}`,s=document.createElement('script');const timer=setTimeout(()=>cleanup(new Error('データ取得がタイムアウトしました。')),45000);function cleanup(err,data){clearTimeout(timer);delete window[cb];s.remove();err?reject(err):resolve(data);}window[cb]=data=>cleanup(null,data);s.onerror=()=>cleanup(new Error('Apps Scriptへの接続に失敗しました。'));s.src=`${endpoint}${endpoint.includes('?')?'&':'?'}callback=${encodeURIComponent(cb)}&_=${Date.now()}`;document.head.appendChild(s);});}
   async function refresh(){ $('refreshButton').disabled=true; try{const data=await loadJsonp(); if(!data||data.ok===false)throw new Error(data&&data.error?data.error:'不明なデータ形式です。');render(data);}catch(e){showError(e.message||String(e));}finally{$('refreshButton').disabled=false;} }
   document.querySelectorAll('.range-tabs button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.range-tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');chartRange=btn.dataset.range;drawChart();}));
   $('refreshButton').addEventListener('click',refresh); refresh();
