@@ -453,6 +453,7 @@ main{
           <button type="button" data-range="all">全期間</button>
         </div>
         <div class="legend"><span><i></i>実測体重</span><span><i class="plan"></i>予定体重</span></div>
+        <p class="note" style="margin:0 0 6px">期間を切り替えると、直近の実測と未来の予定を同じグラフで確認できます。</p>
         <svg id="chartSvg" class="chart" viewBox="0 0 760 350" role="img" aria-label="体重グラフ"></svg>
         <div class="change-grid">
           <div class="change"><span>開始</span><b id="graphStart">—</b></div>
@@ -962,32 +963,99 @@ main{
 
   function drawGraph(){
     if(!data) return;
-    const actual0=data.chart.actual||[], target0=(data.chart.target||[]).map(p=>({date:p.date,weight:plannedWeightAtDate(p.date)??p.weight}));
+    const actual0=data.chart.actual||[];
+    const target0=(data.chart.target||[]).map(p=>({date:p.date,weight:plannedWeightAtDate(p.date)??p.weight}));
     if(!actual0.length){$('chartSvg').innerHTML='<text x="380" y="180" text-anchor="middle">データがありません</text>';return}
-    const endDate=actual0[actual0.length-1].date, end=new Date(endDate+'T00:00:00');
-    let start=new Date(end);
-    if(graphRange==='1m') start.setMonth(start.getMonth()-1);
-    else if(graphRange==='3m') start.setMonth(start.getMonth()-3);
-    else if(graphRange==='6m') start.setMonth(start.getMonth()-6);
-    else if(graphRange==='1y') start.setFullYear(start.getFullYear()-1);
-    else start=new Date((data.goals.startDate)+'T00:00:00');
-    const minT=start.getTime(), maxT=end.getTime();
-    const actual=actual0.filter(p=>new Date(p.date+'T00:00:00').getTime()>=minT);
-    const target=target0.filter(p=>{const t=new Date(p.date+'T00:00:00').getTime();return t>=minT&&t<=maxT});
+
+    const parse=iso=>new Date(iso+'T00:00:00').getTime();
+    const addDays=(iso,days)=>{const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+days);return d.getTime()};
+    const latestDate=actual0[actual0.length-1].date;
+    const latestT=parse(latestDate);
+    const planStartT=parse(data.goals.startDate);
+    const goal2T=parse(data.goals.goal2Date);
+
+    // Range buttons represent the total visible window. Roughly 1/3 is recent
+    // history and 2/3 is future plan, so the target curve remains useful even
+    // while only a short amount of actual data has accumulated.
+    const rangeDays={ '1m':31, '3m':92, '6m':183, '1y':365 };
+    let minT,maxT;
+    if(graphRange==='all'){
+      minT=planStartT;
+      maxT=goal2T;
+    }else{
+      const days=rangeDays[graphRange]||92;
+      const pastDays=Math.max(7,Math.round(days/3));
+      const futureDays=days-pastDays;
+      minT=Math.max(planStartT,addDays(latestDate,-pastDays));
+      maxT=Math.min(goal2T,addDays(latestDate,futureDays));
+      if(maxT<=minT) maxT=Math.min(goal2T,minT+86400000);
+    }
+
+    const actual=actual0.filter(p=>{const t=parse(p.date);return t>=minT&&t<=maxT});
+    const target=target0.filter(p=>{const t=parse(p.date);return t>=minT&&t<=maxT});
     const vals=[...actual,...target].map(p=>Number(p.weight)).filter(Number.isFinite);
-    const minV=Math.floor((Math.min(...vals)-2)/5)*5,maxV=Math.ceil((Math.max(...vals)+2)/5)*5;
+    if(!vals.length){$('chartSvg').innerHTML='<text x="380" y="180" text-anchor="middle">データがありません</text>';return}
+
+    // Auto-zoom the Y axis. A fixed 5kg grid made short ranges look flatter
+    // than they really are, so use a proportional margin while keeping context.
+    const rawMin=Math.min(...vals), rawMax=Math.max(...vals);
+    const rawSpan=Math.max(0.8,rawMax-rawMin);
+    const pad=Math.max(0.4,rawSpan*0.14);
+    const minV=Math.max(0,rawMin-pad), maxV=rawMax+pad;
+    const yDecimals=(maxV-minV)<8?1:0;
+
     const W=760,H=350,m={l:50,r:20,t:24,b:42},iw=W-m.l-m.r,ih=H-m.t-m.b;
-    const x=d=>m.l+((new Date(d+'T00:00:00').getTime()-minT)/(maxT-minT||1))*iw;
+    const x=d=>m.l+((parse(d)-minT)/(maxT-minT||1))*iw;
     const y=v=>m.t+(1-(Number(v)-minV)/(maxV-minV||1))*ih;
     const path=a=>a.map((p,i)=>`${i?'L':'M'}${x(p.date).toFixed(1)},${y(p.weight).toFixed(1)}`).join(' ');
     let h='';
-    for(let i=0;i<=5;i++){const v=minV+(maxV-minV)*i/5,yy=y(v);h+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="#e8e6f2"/><text x="${m.l-8}" y="${yy+4}" text-anchor="end" fill="#655f7b" font-size="12">${v.toFixed(0)}</text>`}
-    for(let i=0;i<=5;i++){const t=minT+(maxT-minT)*i/5,d=new Date(t),xx=m.l+(t-minT)/(maxT-minT||1)*iw;h+=`<line x1="${xx}" y1="${m.t}" x2="${xx}" y2="${H-m.b}" stroke="#f1eff8"/><text x="${xx}" y="${H-14}" text-anchor="middle" fill="#655f7b" font-size="11">${d.getFullYear()}/${d.getMonth()+1}</text>`}
-    h+=`<path d="${path(target)}" fill="none" stroke="#ff5791" stroke-width="2.5" stroke-dasharray="7 6"/><path d="${path(actual)}" fill="none" stroke="#6846df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
-    h+=actual.map(p=>`<circle cx="${x(p.date)}" cy="${y(p.weight)}" r="4" fill="#6846df"/>`).join('');
+
+    // Shade the future side and mark the latest recorded day as "current".
+    if(latestT>=minT&&latestT<=maxT){
+      const nowX=x(latestDate);
+      h+=`<rect x="${nowX}" y="${m.t}" width="${Math.max(0,W-m.r-nowX)}" height="${ih}" fill="#faf8ff"/>`;
+    }
+    for(let i=0;i<=5;i++){
+      const v=minV+(maxV-minV)*i/5,yy=y(v);
+      h+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="#e8e6f2"/><text x="${m.l-8}" y="${yy+4}" text-anchor="end" fill="#655f7b" font-size="12">${v.toFixed(yDecimals)}</text>`;
+    }
+    for(let i=0;i<=5;i++){
+      const t=minT+(maxT-minT)*i/5,d=new Date(t),xx=m.l+(t-minT)/(maxT-minT||1)*iw;
+      h+=`<line x1="${xx}" y1="${m.t}" x2="${xx}" y2="${H-m.b}" stroke="#f1eff8"/><text x="${xx}" y="${H-14}" text-anchor="middle" fill="#655f7b" font-size="11">${d.getFullYear()}/${d.getMonth()+1}</text>`;
+    }
+    h+=`<text x="8" y="${m.t+3}" font-size="11" fill="#655f7b">(kg)</text>`;
+
+    if(target.length) h+=`<path d="${path(target)}" fill="none" stroke="#ff5791" stroke-width="2.8" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if(actual.length){
+      h+=`<path d="${path(actual)}" fill="none" stroke="#6846df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+      h+=actual.map(p=>`<circle cx="${x(p.date)}" cy="${y(p.weight)}" r="4" fill="#6846df"/>`).join('');
+    }
+
+    if(latestT>=minT&&latestT<=maxT){
+      const nowX=x(latestDate);
+      h+=`<line x1="${nowX}" y1="${m.t}" x2="${nowX}" y2="${H-m.b}" stroke="#8b80ad" stroke-width="1.5" stroke-dasharray="4 5"/>`;
+      h+=`<rect x="${Math.max(m.l,Math.min(W-m.r-52,nowX-26))}" y="${m.t+5}" width="52" height="22" rx="11" fill="#f0ecfb"/><text x="${Math.max(m.l+26,Math.min(W-m.r-26,nowX))}" y="${m.t+20}" text-anchor="middle" fill="#65518f" font-size="11" font-weight="800">現在</text>`;
+    }
+
+    // Milestone markers make the curvature and the two-stage goal easier to read.
+    const milestones=[
+      {date:data.goals.goal1Date,weight:data.goals.goal1Weight,label:'80kg目標'},
+      {date:data.goals.goal2Date,weight:data.goals.goal2Weight,label:'60kg目標'}
+    ];
+    milestones.forEach(g=>{
+      const t=parse(g.date);if(t<minT||t>maxT)return;
+      const gx=x(g.date),gy=y(g.weight);
+      h+=`<circle cx="${gx}" cy="${gy}" r="6" fill="#ff5791" stroke="white" stroke-width="2"/>`;
+      h+=`<text x="${Math.max(m.l+34,Math.min(W-m.r-34,gx))}" y="${Math.max(m.t+42,gy-10)}" text-anchor="middle" fill="#c9336b" font-size="11" font-weight="800">${g.label}</text>`;
+    });
+
     $('chartSvg').innerHTML=h;
-    $('graphStart').textContent=kg(actual[0]?.weight,1); $('graphNow').textContent=kg(actual[actual.length-1]?.weight,1);
-    const ch=Number(actual[actual.length-1]?.weight)-Number(actual[0]?.weight); $('graphChange').textContent=Number.isFinite(ch)?`${ch>0?'+':''}${ch.toFixed(1)}kg`:'—'; $('graphChange').className=ch<0?'good':ch>0?'bad':'';
+    const visibleActual=actual.length?actual:actual0;
+    $('graphStart').textContent=kg(visibleActual[0]?.weight,1);
+    $('graphNow').textContent=kg(actual0[actual0.length-1]?.weight,1);
+    const ch=Number(actual0[actual0.length-1]?.weight)-Number(visibleActual[0]?.weight);
+    $('graphChange').textContent=Number.isFinite(ch)?`${ch>0?'+':''}${ch.toFixed(1)}kg`:'—';
+    $('graphChange').className=ch<0?'good':ch>0?'bad':'';
   }
 
   function exportCsv(){
