@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ダイエット進捗">
-  <meta name="diet-dashboard-build" content="v25-compact-record-form">
+  <meta name="diet-dashboard-build" content="v26-bodyfat-layout-fast-save">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>ダイエット進捗</title>
@@ -367,6 +367,23 @@ main{
   .page[data-page="record"] .record-actions{margin-top:8px}
   .page[data-page="record"] .record-actions .action{padding:10px 14px}
 }
+
+/* ===== v26: latest body-fat + robust achievement cards ===== */
+.home-bodyfat{margin-top:5px;display:flex;align-items:baseline;gap:6px;color:#655b85;font-size:clamp(9px,2.55vw,12px);font-weight:800;white-space:nowrap}
+.home-bodyfat b{color:#332178;font-size:clamp(12px,3.3vw,16px);font-weight:900;font-variant-numeric:tabular-nums}
+.home-mini-grid{margin-top:10px!important}
+.achievement-subgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:stretch}
+.achievement-sub{display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;grid-template-areas:"icon title" "value value"!important;align-content:center!important;overflow:hidden!important;min-width:0!important}
+.achievement-sub .sub-icon{grid-area:icon;margin:0 3px 0 0!important}
+.achievement-sub .sub-title{grid-area:title;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap!important;align-self:center}
+.achievement-sub b{grid-area:value;margin:4px 0 0!important;text-align:center!important;max-width:100%;overflow:hidden;text-overflow:clip;font-size:clamp(15px,4vw,21px)!important;letter-spacing:-.035em}
+@media(max-width:430px){
+  .achievement-sub{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"title" "value"!important;padding-left:4px!important;padding-right:4px!important}
+  .achievement-sub .sub-icon{display:none!important}
+  .achievement-sub .sub-title{text-align:center!important;font-size:clamp(8px,2.25vw,9.5px)!important}
+  .achievement-sub b{font-size:clamp(15px,4.3vw,19px)!important}
+}
+
 </style>
 </head>
 <body>
@@ -389,6 +406,7 @@ main{
             <div class="home-current-head"><span class="home-icon scale-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 8V5.8C5 4.3 6.3 3 7.8 3h8.4C17.7 3 19 4.3 19 5.8V8M5.2 8h13.6l1.3 11.8c.1.8-.5 1.2-1.2 1.2H5.1c-.7 0-1.3-.4-1.2-1.2L5.2 8Z" fill="currentColor" opacity=".95"/><path d="M8 12.5a4 4 0 0 1 8 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M12 12.5l2-2" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></span><span>現在の体重</span></div>
             <div class="home-weight"><strong id="homeWeight">--.--</strong><span>kg</span></div>
             <div class="home-prev" id="homePrev">前回比 —</div>
+            <div class="home-bodyfat" id="homeBodyFatRow"><span>最新体脂肪率</span><b id="homeBodyFat">—%</b></div>
             <div class="home-mini-grid">
               <div class="home-mini"><div class="mini-title"><span class="mini-icon flag-icon" aria-hidden="true">⚑</span><span>本日の予定体重</span></div><b id="homePlan">--.--kg</b></div>
               <div class="home-mini"><div class="mini-title"><span class="mini-icon gap-icon" aria-hidden="true">♟</span><span>予定との差</span></div><b id="homeGap">--.--kg</b></div>
@@ -727,6 +745,44 @@ main{
     return plannedWeightAtDate(localIso());
   }
 
+  function latestBodyFatFromHistory(){
+    if(!data || !Array.isArray(data.history)) return null;
+    for(let i=data.history.length-1;i>=0;i--){
+      const r=data.history[i];
+      if(hasValue(r.pmBodyFat)) return {value:Number(r.pmBodyFat),date:r.date,slot:'夜'};
+      if(hasValue(r.amBodyFat)) return {value:Number(r.amBodyFat),date:r.date,slot:'朝'};
+    }
+    return null;
+  }
+
+  function recomputeLocalAfterSave(saved){
+    if(!data || !Array.isArray(data.history)) return;
+    const row=data.history.find(r=>r.date===saved.date);
+    if(row){
+      if(saved.slot==='朝'){row.amWeight=Number(saved.weight);row.amBodyFat=hasValue(saved.bodyFat)?Number(saved.bodyFat):null;}
+      else {row.pmWeight=Number(saved.weight);row.pmBodyFat=hasValue(saved.bodyFat)?Number(saved.bodyFat):null;}
+    }
+    const recorded=data.history.map(r=>{
+      const am=hasValue(r.amWeight)?Number(r.amWeight):null, pm=hasValue(r.pmWeight)?Number(r.pmWeight):null;
+      if(am===null && pm===null) return null;
+      if(pm===null || (am!==null && am<=pm)) return {date:r.date,weight:am,bodyFat:hasValue(r.amBodyFat)?Number(r.amBodyFat):null,slot:'朝'};
+      return {date:r.date,weight:pm,bodyFat:hasValue(r.pmBodyFat)?Number(r.pmBodyFat):null,slot:'夜'};
+    }).filter(Boolean);
+    if(recorded.length){
+      const cur=recorded[recorded.length-1], prev=recorded.length>1?recorded[recorded.length-2]:null;
+      data.current=Object.assign({},data.current,{date:cur.date,weight:cur.weight,bodyFat:cur.bodyFat,slot:cur.slot,previousDiff:prev?cur.weight-prev.weight:null});
+      if(data.goals){
+        data.goals.goal1Remaining=Math.max(0,cur.weight-Number(data.goals.goal1Weight));
+        data.goals.goal2Remaining=Math.max(0,cur.weight-Number(data.goals.goal2Weight));
+      }
+      if(data.stats) data.stats.lostWeight=Number(data.goals.startWeight)-cur.weight;
+      if(data.chart) data.chart.actual=recorded.map(r=>({date:r.date,weight:r.weight}));
+    }
+    data.generatedAt=new Date().toLocaleString('ja-JP',{year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).replace(/\//g,'/').replace(' ',' ');
+    saveCache(data);
+    renderAll();
+  }
+
   function renderHome(){
     const c=data.current,g=data.goals,p=data.plan;
     $('homeWeight').textContent=num(c.weight,2)||'--.--';
@@ -734,6 +790,9 @@ main{
       const d=Number(c.previousDiff), cls=d<0?'good':d>0?'bad':'neutral', arrow=d<0?'↓':d>0?'↑':'→', sign=d>0?'+':'';
       $('homePrev').innerHTML=`前回比 <b class="${cls}">${arrow} ${sign}${d.toFixed(2)}kg</b>`;
     } else $('homePrev').textContent='前回比 —';
+    const latestBf=latestBodyFatFromHistory();
+    $('homeBodyFat').textContent=latestBf?`${latestBf.value.toFixed(1)}%`:'—%';
+    $('homeBodyFatRow').title=latestBf?`最新入力: ${fmtDate(latestBf.date)} ${latestBf.slot}`:'体脂肪率の入力記録はありません';
     const plannedToday=getTodayPlanWeight();
     $('homePlan').textContent=hasValue(plannedToday)?`${Number(plannedToday).toFixed(2)}kg`:'—';
     const gap=hasValue(plannedToday)&&hasValue(c.weight)?Number(c.weight)-Number(plannedToday):null;
@@ -899,10 +958,16 @@ main{
     if(bf!==null&&(!Number.isFinite(bf)||bf<3||bf>70)){toast('体脂肪率を3〜70%で入力してください');return}
     try{
       $('saveRecord').disabled=true;
-      await writeAction({action:'save',date:record.date,slot:record.slot,weight:w,bodyFat:bf===null?'':bf});
+      const savedParams={action:'save',date:record.date,slot:record.slot,weight:w,bodyFat:bf===null?'':bf};
+      const res=await writeAction(savedParams);
+      if(!res.payload) recomputeLocalAfterSave(savedParams);
       $('recordSuccess').textContent=`✓ ${fmtDate(record.date)} ${record.slot}　${w.toFixed(1)}kg${bf===null?'':` / ${bf.toFixed(1)}%`} を保存しました`;
       $('recordSuccess').classList.add('show'); toast('記録を保存しました');
-      setTimeout(()=>{ $('recordSuccess').classList.remove('show'); resetRecord(); navigate('home'); },650);
+      setTimeout(()=>{
+        $('recordSuccess').classList.remove('show');
+        resetRecord(); navigate('home');
+        refresh(true);
+      },220);
     }catch(e){toast(e.message||String(e))}finally{$('saveRecord').disabled=false}
   }
   async function deleteRecord(){
