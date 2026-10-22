@@ -384,6 +384,70 @@ main{
   .achievement-sub b{font-size:clamp(15px,4.3vw,19px)!important}
 }
 
+/* ===== v27: unified four metric cards ===== */
+.home-mini-grid,.achievement-subgrid{
+  gap:6px!important;
+  align-items:stretch!important;
+}
+.achievement-subgrid{margin-top:11px!important}
+.home-mini,.achievement-sub{
+  box-sizing:border-box!important;
+  min-height:66px!important;
+  height:66px!important;
+  padding:7px 5px!important;
+  border:1px solid #dfdaef!important;
+  border-radius:14px!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfaff 100%)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  overflow:hidden!important;
+}
+.home-mini:nth-child(2){background:linear-gradient(180deg,#ffffff 0%,#fbfaff 100%)!important}
+.home-mini .mini-title,.achievement-sub .sub-title{
+  min-height:22px!important;
+  width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  color:#675e88!important;
+  font-size:clamp(8.5px,2.25vw,10.5px)!important;
+  font-weight:850!important;
+  line-height:1.12!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+.home-mini .mini-title span{
+  display:block!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+}
+.home-mini b,.achievement-sub b{
+  display:block!important;
+  margin:3px 0 0!important;
+  max-width:100%!important;
+  color:#24146d;
+  font-size:clamp(16px,4.2vw,21px)!important;
+  font-weight:900!important;
+  line-height:1!important;
+  letter-spacing:-.035em!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  font-variant-numeric:tabular-nums!important;
+}
+#homeGap.good{color:#05ad70!important}
+#homeGap.bad{color:#df3c65!important}
+.home-mini .mini-icon,.achievement-sub .sub-icon{display:none!important}
+@media(max-width:360px){
+  .home-mini,.achievement-sub{height:62px!important;min-height:62px!important;padding:6px 3px!important}
+  .home-mini .mini-title,.achievement-sub .sub-title{min-height:21px!important;font-size:8px!important}
+  .home-mini b,.achievement-sub b{font-size:15px!important}
+}
+
 </style>
 </head>
 <body>
@@ -408,8 +472,8 @@ main{
             <div class="home-prev" id="homePrev">前回比 —</div>
             <div class="home-bodyfat" id="homeBodyFatRow"><span>最新体脂肪率</span><b id="homeBodyFat">—%</b></div>
             <div class="home-mini-grid">
-              <div class="home-mini"><div class="mini-title"><span class="mini-icon flag-icon" aria-hidden="true">⚑</span><span>本日の予定体重</span></div><b id="homePlan">--.--kg</b></div>
-              <div class="home-mini"><div class="mini-title"><span class="mini-icon gap-icon" aria-hidden="true">♟</span><span>予定との差</span></div><b id="homeGap">--.--kg</b></div>
+              <div class="home-mini"><div class="mini-title"><span>本日の予定体重</span></div><b id="homePlan">--.--kg</b></div>
+              <div class="home-mini"><div class="mini-title"><span>予定との差</span></div><b id="homeGap">--.--kg</b></div>
             </div>
           </div>
           <div class="achievement-panel">
@@ -417,8 +481,8 @@ main{
             <div class="achievement-value" id="achievementValue">—%</div>
             <div class="achievement-status" id="achievementStatus">—</div>
             <div class="achievement-subgrid">
-              <div class="achievement-sub"><span class="sub-icon mint" aria-hidden="true">↘</span><span class="sub-title">トータル減量</span><b id="achievementTotalLoss">—kg</b></div>
-              <div class="achievement-sub"><span class="sub-icon blue" aria-hidden="true">◎</span><span class="sub-title">減量進捗率</span><b id="weightProgressPct">—%</b></div>
+              <div class="achievement-sub"><span class="sub-title">トータル減量</span><b id="achievementTotalLoss">—kg</b></div>
+              <div class="achievement-sub"><span class="sub-title">減量進捗率</span><b id="weightProgressPct">—%</b></div>
             </div>
           </div>
         </div>
